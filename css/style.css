@@ -1,0 +1,134 @@
+html {
+	background:black;
+	font-family:sans-serif;
+	font-size:13px;
+	line-height:19px;
+		width:1024px;
+	height:768px;
+}
+
+body {
+	background:transparent url('../img/background-texture.png') no-repeat fixed;
+	width:1024px;
+	height:768px;
+	overflow:hidden;
+	top:0px;
+	left:-6px;
+	position:absolute;
+}
+
+h1 {
+	font-size:16px;
+	font-weight:lighter;
+}
+h3 {
+	font-size:14px;
+}
+
+a {
+	text-decoration: none;
+	font-family: "Arvo", sans-serif;
+	font-weight: lighter;
+}
+
+
+#header {
+	height:42px;
+	width:100%;
+	background:black;
+	color:white;
+	-webkit-box-shadow:0px -1px 5px black;
+	position:absolute;
+	top:0;
+	left:0;
+	z-index:200;
+}
+#feature {
+	width:4096px;
+	height:330px;
+	padding:0;
+	margin:0;
+	overflow:hidden;
+	position: absolute;
+	top:42px;
+	left:0px;
+	z-index:100;
+	-webkit-box-shadow: 0 0 10px black;
+}
+
+.featureStory {
+	float:left;
+	height:330px;
+	overflow:hidden;
+}
+.featureStory img {
+	z-index:0;
+}
+.featureStory section {
+	position:relative;
+	bottom:30px;
+	left:0;
+	background: rgba(0,0,0,0.8);
+	color:white;
+	z-index:100;
+	font-size:15px;
+	width:160px;
+}
+
+#storiesWrapper {
+	width:1024px;
+	position:absolute;
+	top:372px;
+	left:0;
+	background:#131212;
+	overflow:hidden;
+	-webkit-box-shadow:0px 0px 10px black;
+	z-index:50;
+}
+#storiesWrapper h3 {
+
+}
+.story {
+	width:331px;
+	height:220px;
+	float:left;
+	color:#9c9d9d;
+	line-height:18px;
+}
+
+.story a {
+	color: #74b5ff;
+	font-size:17px;
+}
+
+/* Bounding Box */
+.yui3-scrollview {
+    position: relative; /* To provide positioning context */ 
+    overflow: hidden;   /* To clip scrolled content */
+    ...
+}
+ 
+/* Content Box */
+.yui3-scrollview-content {
+    position:relative; /* To allow positioning */
+}
+.yui3-scrollview-content ul {
+    margin:0;
+    padding:0;
+}
+ 
+.yui3-scrollview-content li {
+    padding:0;
+    margin:0;
+ 
+    list-style:none;
+ 
+    /* cross browser inline block */
+    display: -moz-inline-stack;
+    display: inline-block;
+    *display: inline;
+}
+
+.clearfix {
+	clear:both;
+}
