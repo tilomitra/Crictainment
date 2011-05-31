@@ -1,4 +1,4 @@
-YUI().use('node', 'yql', 'datasource', 'dataschema', 'scrollview-base', "scrollview-paginator", "scrollview-scrollbars", function(Y) {
+YUI().use('node', 'yql', 'datasource', 'dataschema', 'scrollview-base', "scrollview-paginator", "scrollview-scrollbars", "overlay", "gallery-overlay-extras", function(Y) {
 
 	var pipeModel = {
 		
@@ -51,11 +51,12 @@ YUI().use('node', 'yql', 'datasource', 'dataschema', 'scrollview-base', "scrollv
 
 			//show most recent 6 feeds
 			for (var i = 0; i < 13; i++) {
-				console.log(this._determineFeedHost(feed[i].link));
-				html += '<div class="yui3-u-7-24 story">';
-				html += '<h3><a href="'+feed[i].link+'">'+feed[i].title+'</a></h3>';
+				//console.log(this._determineFeedHost(feed[i].link));
+				html += '<div class="yui3-u-7-24 story"><a href="'+feed[i].link+'">';
+				html += '<h3>'+feed[i].title+'</h3>';
+				html += '<p class="author"> From '+this._determineFeedHost(feed[i].link)+'</p>';
 				html += '<p>'+this._stripHTML(feed[i].description)+'</p>';
-				html += "</div>";
+				html += "</a></div>";
 			}
 
 			html += "</div>"
@@ -65,7 +66,7 @@ YUI().use('node', 'yql', 'datasource', 'dataschema', 'scrollview-base', "scrollv
 		},
 
 		showFeatures: function(o) {
-				var HTML_TEMPLATE = '<div class="yui3-u-1-3 featureStory" data={href}><div class="title">{title}</div><img src="{image}"></div>',
+				var HTML_TEMPLATE = '<div class="yui3-u-1-3 featureStory" data={href}><a href="{href}"><div class="title">{title}</div><img src="{image}"></a></div>',
 				html = '',
 				i = 0;
 
@@ -96,10 +97,10 @@ YUI().use('node', 'yql', 'datasource', 'dataschema', 'scrollview-base', "scrollv
 			var m = p.exec(txt);
 			if (m != null)
 			{
-			    var fqdn1=m[1];
-			    fqdn1 = fqdn1.replace(/</,"&lt;");
+			    var t=m[1];
+			    t = t.replace(/</,"&lt;");
 
-			    return fqdn1;
+			    return this._humanizeSite(t);
 			    //document.write("("+fqdn1.replace(/</,"&lt;")+")"+"\n");
 			}
 		},
@@ -108,17 +109,52 @@ YUI().use('node', 'yql', 'datasource', 'dataschema', 'scrollview-base', "scrollv
 		//Takes in a string and returns a string without any HTML inside it (just text)
 		_stripHTML: function(txt) {
 			return txt.replace(/<\/?[^>]+(>|$)/g, "");
+		},
+
+		_humanizeSite: function(url) {
+			var hash = {
+				"live-feeds.cricbuzz.com": "Cricbuzz",
+				"timesofindia.feedsportal.com": "Times of India",
+				"cricketnext.in.com": "CricketNext",
+				"espncricinfo.com": "Cricinfo"
+			};
+
+			if (hash[url]) {
+				return hash[url];
+			}
+			else {
+				return url;
+			}
 		}
 
 	};
 
 	var ui = {
+
+		_loader: undefined,
+
+		createLoadingIndicator: function() {
+			this._loader = new Y.Overlay({
+				srcNode: "#load",
+				bodyContent: "Your content is loading...",
+				centered:true,
+				visible:false,
+				width: 200,
+				zIndex:2000,
+				plugins: [Y.Plugin.OverlayModal, Y.Plugin.OverlayKeepaligned]
+			});
+
+			this._loader.render();
+			this._loader.show();
+
+
+		},
 		
 		createBaseScrollView: function() {
 			/* ScrollView without scrollbar indicator */
 			var scrollview = new Y.ScrollView({
 			    srcNode:"#storiesWrapper",
-			    height:362,
+			    height:420,
 			    flick: {
 			                minDistance:10,
 			                minVelocity:0.3,
@@ -150,21 +186,43 @@ YUI().use('node', 'yql', 'datasource', 'dataschema', 'scrollview-base', "scrollv
 			 
 			scrollView.render();
 		}
-	}
+	};
+
+	var overview = {
+		listen: function() {
+
+			var self = this;
+			Y.all('#stories a, #stories div').each(function(n) {
+				self.stop(n);
+			});
+		},
+
+		stop: function(n) {
+			
+			n.on('click', function(e) {
+				e.preventDefault();
+				alert('ello');
+			});
+		}
+	};
 
 
 
 	var main = function() {
 		
+		ui.createLoadingIndicator();
 		ui.createBaseScrollView();
 		//ui.createFeatureList();
 		var items = pipeModel.fetchStories();
-		pipeModel.fetchHeadlines();
 
+		ui._loader.set('bodyContent', 'Loading complete. Enjoy! :)');
+		pipeModel.fetchHeadlines();
 		ui.createBaseScrollView();
-		//ui.createFeatureList();
-		//console.log(items);
-		//pipeModel.show(items);
+
+		ui._loader.hide();
+
+		//hardcoded, should be changed.
+		Y.later(1500,overview,"listen");
 
 	}();
 	
