@@ -1,4 +1,4 @@
-YUI().use('node', 'yql', 'datasource', 'dataschema', 'scrollview-base', "scrollview-paginator", function(Y) {
+YUI().use('node', 'yql', 'datasource', 'dataschema', 'scrollview-base', "scrollview-paginator", "scrollview-scrollbars", function(Y) {
 
 	var pipeModel = {
 		
@@ -125,6 +125,9 @@ YUI().use('node', 'yql', 'datasource', 'dataschema', 'scrollview-base', "scrollv
 			                axis: "y"
 			            }
 			});
+
+			scrollview.plug(Y.Plugin.ScrollViewScrollbars);
+			scrollview.scrollbars.show();
 
 			scrollview.render();
 		},
