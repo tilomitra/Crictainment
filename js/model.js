@@ -3,7 +3,7 @@ YUI().use('node', 'yql', 'datasource', 'dataschema', 'scrollview-base', "scrollv
 	var pipeModel = {
 		
 		//fetch stuff from pipe
-		fetch: function() {
+		fetchStories: function() {
 			//other: http://pipes.yahoo.com/pipes/pipe.run?_id=lrs3aorM2xGxkmAOJjBjOg&_render=rss
 			//mine: 'http://pipes.yahoo.com/pipes/pipe.run?_id=151e9e4b100e74de48458aa2a2d871ef&_render=rss
 			var q = "select * from rss where url='http://pipes.yahoo.com/pipes/pipe.run?_id=151e9e4b100e74de48458aa2a2d871ef&_render=rss'";
@@ -42,16 +42,19 @@ YUI().use('node', 'yql', 'datasource', 'dataschema', 'scrollview-base', "scrollv
 			});
 		},
 
+
+		/* DISPLAY METHODS */
+
 		showStories: function(feed) {
 			var html = "<div id='stories'>",
 			len = feed.length;
 
 			//show most recent 6 feeds
 			for (var i = 0; i < 13; i++) {
-				console.log(this.determineFeedHost(feed[i].link));
-				html += '<div class="story">';
+				console.log(this._determineFeedHost(feed[i].link));
+				html += '<div class="yui3-u-7-24 story">';
 				html += '<h3><a href="'+feed[i].link+'">'+feed[i].title+'</a></h3>';
-				html += '<p>'+feed[i].description+'</p>';
+				html += '<p>'+this._stripHTML(feed[i].description)+'</p>';
 				html += "</div>";
 			}
 
@@ -62,7 +65,7 @@ YUI().use('node', 'yql', 'datasource', 'dataschema', 'scrollview-base', "scrollv
 		},
 
 		showFeatures: function(o) {
-				var HTML_TEMPLATE = '<div class="featureStory" data={href}><section>{title}</section><img src="{image}"></div>',
+				var HTML_TEMPLATE = '<div class="yui3-u-7-24 featureStory" data={href}><div class="title">{title}</div><img src="{image}"></div>',
 				html = '',
 				i = 0;
 
@@ -76,12 +79,16 @@ YUI().use('node', 'yql', 'datasource', 'dataschema', 'scrollview-base', "scrollv
 					html += Y.Lang.sub(HTML_TEMPLATE, d);	
 				}
 
-				Y.one("#feature").append(html);
+				Y.one("#featureWrapper").append(html);
 
 		},
 
+
+		/* UTILITY METHODS */
+
+
 		//takes an URL and returns the hostname (ie: cricinfo.com)
-		determineFeedHost: function(txt) {
+		_determineFeedHost: function(txt) {
 			var re1='.*?';	// Non-greedy match on filler
 			var re2='((?:[a-z][a-z\\.\\d\\-]+)\\.(?:[a-z][a-z\\-]+))(?![\\w\\.])';	// Fully Qualified Domain Name 1
 
@@ -95,6 +102,12 @@ YUI().use('node', 'yql', 'datasource', 'dataschema', 'scrollview-base', "scrollv
 			    return fqdn1;
 			    //document.write("("+fqdn1.replace(/</,"&lt;")+")"+"\n");
 			}
+		},
+
+
+		//Takes in a string and returns a string without any HTML inside it (just text)
+		_stripHTML: function(txt) {
+			return txt.replace(/<\/?[^>]+(>|$)/g, "");
 		}
 
 	};
@@ -105,7 +118,7 @@ YUI().use('node', 'yql', 'datasource', 'dataschema', 'scrollview-base', "scrollv
 			/* ScrollView without scrollbar indicator */
 			var scrollview = new Y.ScrollView({
 			    srcNode:"#storiesWrapper",
-			    height:"362px",
+			    height:362,
 			    flick: {
 			                minDistance:10,
 			                minVelocity:0.3,
@@ -119,7 +132,7 @@ YUI().use('node', 'yql', 'datasource', 'dataschema', 'scrollview-base', "scrollv
 		createFeatureList: function() {
 			var scrollView = new Y.ScrollView({
 				id: 'scrollview',
-			    srcNode: '#feature',
+			    srcNode: '#featureWrapper',
 			    width: 1024,
 			    flick: {
 			        minDistance:10,
@@ -143,7 +156,7 @@ YUI().use('node', 'yql', 'datasource', 'dataschema', 'scrollview-base', "scrollv
 		ui.createBaseScrollView();
 		//ui.createFeatureList();
 
-		var items = pipeModel.fetch();
+		var items = pipeModel.fetchS();
 		pipeModel.fetchHeadlines();
 
 		ui.createBaseScrollView();
