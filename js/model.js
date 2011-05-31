@@ -65,7 +65,7 @@ YUI().use('node', 'yql', 'datasource', 'dataschema', 'scrollview-base', "scrollv
 		},
 
 		showFeatures: function(o) {
-				var HTML_TEMPLATE = '<div class="yui3-u-7-24 featureStory" data={href}><div class="title">{title}</div><img src="{image}"></div>',
+				var HTML_TEMPLATE = '<div class="yui3-u-1-3 featureStory" data={href}><div class="title">{title}</div><img src="{image}"></div>',
 				html = '',
 				i = 0;
 
@@ -156,7 +156,7 @@ YUI().use('node', 'yql', 'datasource', 'dataschema', 'scrollview-base', "scrollv
 		ui.createBaseScrollView();
 		//ui.createFeatureList();
 
-		var items = pipeModel.fetchS();
+		var items = pipeModel.fetchStories();
 		pipeModel.fetchHeadlines();
 
 		ui.createBaseScrollView();
