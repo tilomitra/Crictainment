@@ -152,6 +152,19 @@ h1  {
 	line-height: 36px;
 }
 
+
+#menubar {
+	width:100%;
+	height:45px;
+	background:yellow;
+}
+
+#menubar ul li {
+	display:inline;
+	list-style-type: none;
+	padding-right:20px;
+}
+
 #storiesWrapper {
 	background: #12181d;
 	text-align:center;
@@ -165,7 +178,7 @@ h1  {
 }
 
 #storiesWrapper .story {
-	text-align:justify;
+	text-align:left;
 	color: #b0b1b1;
 	line-height:20px;
 	font-size:14px;
@@ -189,11 +202,6 @@ h1  {
 	color: #295773;
 	font-size: 11px;
 	font-weight: bold;
-}
-
-#storiesWrapper .story:hover {
-	background: #132636;
-	color:white;
 }
 
 .story h3 {

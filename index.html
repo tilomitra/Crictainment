@@ -19,8 +19,8 @@
 
 
 
-	    <script src="js/model.js"
-	        charset="utf-8"></script>
+	    <script src="js/main.js" charset="utf-8"></script>
+	    <scipt src="http://joehewitt.github.com/scrollability/scrollability-min.js"></script>
     <link rel="stylesheet" href="css/interface.css" media="screen" charset="utf-8">
     <link href='http://fonts.googleapis.com/css?family=Arvo' rel='stylesheet' type='text/css'>
 	</head>
@@ -47,7 +47,15 @@
 
 				</div>
 
-				<div class="yui3-u-1" id="storiesWrapper">
+				<div class="yui3-u-1" id="menubar">
+					<ul>
+						<li><a href="news.html" id="news">News</li>
+						<li><a href="videos.html" id="videos">Videos</a></li>
+						<li><a href="tweets.html" id="tweets">Tweets</li>
+					</ul>
+				</div>
+
+				<div class="yui3-u-1 scrollable vertical" id="storiesWrapper">
 
 	<!-- 				<div class="yui3-u-7-24 story">
 
