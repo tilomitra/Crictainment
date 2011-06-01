@@ -164,7 +164,16 @@ h1  {
 	list-style-type: none;
 	padding-right:20px;
 }
-
+#storiesContainer {
+	position: absolute;
+	background: transparent;
+	overflow: hidden;
+	margin:0; padding:0;
+	width:981px;
+	left: 21px;
+	top: 385px;
+	bottom: 0px;
+}
 #storiesWrapper {
 	background: #12181d;
 	text-align:center;
@@ -175,6 +184,7 @@ h1  {
 	font-family: "ArvoRegular";
 	padding: 2px 10px;
 	line-height:29px;
+	-webkit-transform: translate3d(0,0,0);
 }
 
 #storiesWrapper .story {
@@ -194,7 +204,9 @@ h1  {
 	min-height:200px;
 	-webkit-border-radius:5px;
 	border-radius:5px;
-	-moz-border-radius:5px;
+	-moz-border-radius:5px;f
+	float:none;
+	display:inline-block;
 }
 
 #storiesWrapper .story p.author {

@@ -31,7 +31,9 @@ YUI.add('ui', function(Y) {
 			                minDistance:2,
 			                minVelocity:0.3,
 			                axis: "y"
-			            }
+			            },
+			    bounce:0.9,
+			    deceleration:0.999
 			});
 
 			scrollview.render();

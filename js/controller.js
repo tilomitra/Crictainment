@@ -27,7 +27,7 @@
 				Y.one('#menubar ul').on('click', function(e) {
 					e.preventDefault();
 					if (e.target._node.id === "videos") {
-						pipeModel.fetchVideos();
+						Y.data.fetchVideos();
 					}
 				});
 			}

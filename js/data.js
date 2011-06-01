@@ -51,6 +51,7 @@
 
 	    		Y.YQL('select * from rss where url = "' + pipe + '"', function(r) {
 	    			console.log(r);
+	    			Y.one('#scroll')
 	    		});
 	    			
 	    	},
@@ -59,7 +60,7 @@
 	    	/* DISPLAY METHODS */
 
 	    	showStories: function(feed) {
-	    		var html = "<div id='stories'>",
+	    		var html = "",
 	    		len = feed.length;
 
 	    		//show most recent 6 feeds
@@ -71,8 +72,6 @@
 	    			html += '<p>'+this._stripHTML(feed[i].description)+'</p>';
 	    			html += "</a></div>";
 	    		}
-
-	    		html += "</div>"
 
 	    		Y.one('#storiesWrapper').appendChild(html);
 

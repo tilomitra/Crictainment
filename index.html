@@ -8,7 +8,7 @@
 	    <meta name="apple-mobile-web-app-capable" content="yes" />
 	<meta name="apple-mobile-web-app-status-bar-style" content="default" />
 	<meta name="apple-touch-fullscreen" content="yes" />
-	<meta name = "viewport" content = "width = device-width">
+	<meta name="viewport" content="width=device-width,maximum-scale=1.0" /> 
 	<meta name = "viewport" content = "initial-scale = 1.0, user-scalable = no">
 	<script src="http://yui.yahooapis.com/3.3.0/build/yui/yui-min.js"
 	    charset="utf-8"></script>
@@ -17,12 +17,14 @@
 	    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.3.0/build/cssgrids/grids-min.css">
 	    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.3.0/build/cssbase/base-min.css">
 
+	    <link rel="stylesheet" href="css/interface.css" media="screen" charset="utf-8">
+	    <link href='http://fonts.googleapis.com/css?family=Arvo' rel='stylesheet' type='text/css'>
+
 
 
 	    <script src="js/main.js" charset="utf-8"></script>
-	    <scipt src="http://joehewitt.github.com/scrollability/scrollability-min.js"></script>
-    <link rel="stylesheet" href="css/interface.css" media="screen" charset="utf-8">
-    <link href='http://fonts.googleapis.com/css?family=Arvo' rel='stylesheet' type='text/css'>
+	    <script src="http://joehewitt.github.com/scrollability/scrollability-min.js" charset="utf-8"></script>
+
 	</head>
 
 	<body ontouchmove="BlockMove(event);" onload="doThis()">
@@ -51,11 +53,11 @@
 					<ul>
 						<li><a href="news.html" id="news">News</li>
 						<li><a href="videos.html" id="videos">Videos</a></li>
-						<li><a href="tweets.html" id="tweets">Tweets</li>
+						<li><a href="tweets.html" id="tweets">Tweets</a></li>
 					</ul>
 				</div>
-
-				<div class="yui3-u-1 scrollable vertical" id="storiesWrapper">
+				<div class="yui3-u" id="storiesContainer">
+				<div class="scrollable vertical yui3-u-1" id="storiesWrapper"></div>
 
 	<!-- 				<div class="yui3-u-7-24 story">
 
