@@ -5,7 +5,7 @@
 	    Y.controller = {
 	    	init: function() {
 				this.listen();
-				this.listenToMenubar();
+				//this.listenToMenubar();
 				this.listenToFeatures();
 			},
 			listen: function() {
@@ -18,8 +18,16 @@
 
 			listenToFeatures: function() {
 				Y.all(".featureLink").each(function(n) {
+					console.log(n);
+					//console.log(Y.Node.create(n._node.parentNode).getDOMNode());
 					n.on('click', Y.data.fetchCricinfoArticle);
 				});
+			},
+
+			listenToNewsClose: function(overlay) {
+				Y.one(".yui3-overlay-mask").on('click', function(e) {
+					overlay.set('visible', false);
+				});	
 			},
 
 			stop: function(n) {

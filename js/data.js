@@ -82,8 +82,17 @@
 	      			//provide img url
 	      			o.imgUrl = 'http://www.cricinfo.com' + r.query.results.img.src;
 
-	      			var olay = Y.ui.createNewsOverlay(o);
-	      			olay.render('#newsOverlay');
+	      			var overlay = Y.ui.createNewsOverlay(o);
+	      			overlay.get('contentBox').addClass('animate translate-3d');
+
+	      			overlay.show(function() {
+	      				overlay.removeClass('animate translate-3d');
+	      			});
+	      			Y.controller.listenToNewsClose(overlay);
+	      			//overlay.get('contentBox').removeClass('animate translate-3d');
+	      			//Y.later(1000, function()); //overlay.set('visible', true);
+
+	      			
 
 	      		});
 	    	},

@@ -3,7 +3,8 @@ YUI.add('ui', function(Y) {
     Y.namespace('ui');
  
 	Y.ui = {
-		_loader: "undefined",
+		_loader: undefined,
+		_newsOverlay: undefined,
 
 		createLoadingIndicator: function() {
 			this._loader = new Y.Overlay({
@@ -60,18 +61,35 @@ YUI.add('ui', function(Y) {
 
 		//o has properties content, imgUrl, header
 		createNewsOverlay: function(o) {
-			var html = '<div id="supportingImg"><img src="'+o.imgUrl+'"></div><div id="content">'+o.content+'</div>',
-			overlay = new Y.Overlay({
-				width:600,
-				x:212,
-				y:256,
-				bodyContent: html,
-				headerContent: o.header,
-				visible: true,
-				zIndex:1000,
-				plugins: [Y.Plugin.OverlayModal]
-			});
-			return overlay;
+			var self = this,
+			html = '<div id="supportingImg"><img src="'+o.imgUrl+'"></div><div id="content">'+o.content+'</div>';
+			if (Y.Lang.isUndefined(self._newsOverlay)) {
+				
+				var overlay = new Y.Overlay({
+					width:650,
+					x:212,
+					y:100,
+					bodyContent: html,
+					headerContent: o.header,
+					visible: false,
+					zIndex:1000,
+					plugins: [Y.Plugin.OverlayModal]
+				});
+				overlay.get('contentBox').addClass('scrollable vertical');
+				overlay.render('#newsOverlay');
+				self._newsOverlay = overlay;
+
+			}
+
+			else {
+				self._newsOverlay.setAttrs({
+					bodyContent: html,
+					headerContent: o.header,
+					visible: false
+				});
+			}
+
+			return self._newsOverlay;
 		}
 	};
  

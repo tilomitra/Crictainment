@@ -18,6 +18,7 @@
 	    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.3.0/build/cssbase/base-min.css">
 
 	    <link rel="stylesheet" href="css/interface.css" media="screen" charset="utf-8">
+	    <link rel="stylesheet" href="css/animation.css" media="screen" charset="utf-8">
 	    <link href='http://fonts.googleapis.com/css?family=Arvo' rel='stylesheet' type='text/css'>
 
 
@@ -32,7 +33,7 @@
 		<div class="yui3-g" id="wrapper">
 		<div class="yui3-u" id="load"></div>
 		<div class="yui3-u-1" id="header">
-			<h1>crictainment</h1><input type="button" value="Reload Page" onClick="window.location.reload()">
+			<h1>crictainment</h1><div id="refresh"><a href="#" onClick="window.location.reload()"><img src="img/refresh_default.png"></a></div>
 		</div>
 			<div class="yui3-u-23-24" id="container">
 				
@@ -52,13 +53,13 @@
 					</div>
 				</div>
 
-				<div class="yui3-u-1" id="menubar">
+				<!-- <div class="yui3-u-1" id="menubar"> 
 					<ul>
 						<li><a href="news.html" id="news">News</li>
 						<li><a href="videos.html" id="videos">Videos</a></li>
 						<li><a href="tweets.html" id="tweets">Tweets</a></li>
 					</ul>
-				</div>
+				</div>-->
 				<div class="yui3-u" id="storiesContainer">
 				<div class="scrollable vertical yui3-u-1" id="storiesWrapper"></div>
 
