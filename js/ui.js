@@ -56,6 +56,21 @@ YUI.add('ui', function(Y) {
 			});
 			 
 			scrollView.render();
+		},
+
+		createNewsOverlay: function(content) {
+			var overlay = new Y.Overlay({
+				width:600,
+				height:600,
+				centered:true,
+				bodyContent: content,
+				visible: false,
+				zIndex:1000,
+				plugins: [Y.Plugin.OverlayModal]
+			});
+
+			overlay.render('#newsOverlay');
+			return overlay;
 		}
 	};
  

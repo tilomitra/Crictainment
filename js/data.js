@@ -12,11 +12,9 @@
 	    		var self = this;
 	    		Y.YQL(q, function(r) {
 	    			
-	    	     	console.log(r.query.results.item);
+	    	     	//console.log(r.query.results.item);
 	    	     	self.showStories(r.query.results.item)
 	    	     	//return r.query.results.item;
-
-
 	    	     });
 	    	},
 
@@ -32,15 +30,16 @@
 	    			l = undefined;
 
 	    			for ( ; i < items.length; i++) {
-	    				l = items[i].image.length;
-	    				items[i].imgUrl = items[i].image[l - 1].content;
 
-	    				delete items[i].image;
+	    				if (items[i].image) {
+	    					l = items[i].image.length;
+	    					items[i].imgUrl = items[i].image[l - 1].content;
+	    					console.log(items[i].imgUrl);
+	    					delete items[i].image;
+	    				}
 	    			}
 
 	    			self.showFeatures(items);
-	    			
-
 	    		});
 	    	},
 
@@ -50,14 +49,55 @@
 	    		var pipe = 'http://pipes.yahoo.com/pipes/pipe.run?_id=f18764ad8f224b5e0b4bae4658245057&_render=rss';
 
 	    		Y.YQL('select * from rss where url = "' + pipe + '"', function(r) {
-	    			console.log(r);
-	    			Y.one('#scroll')
+	    			//console.log(r);
+	    			//Y.one('#scroll')
 	    		});
 	    			
 	    	},
 
+	    	fetchCricinfoArticle: function(e) {
+	    		e.preventDefault();
+	    		
+	    		var href = e.currentTarget._stateProxy.href,
+	    		query = "select * from html where url='"+ href + "' and xpath='//div[@id=" + '"storyTxt"' + "]'",
+	    		self = this,
+	    		content = undefined;
+
+	    		console.log(href);
+	    		Y.YQL(query, function(r) {
+	      			
+	      			content = r.results[0];
+	      			var olay = Y.ui.createNewsOverlay(content);
+	      			olay.set('visible', true);
+
+	      		}, {format:'xml'});
+	    	},
+
 
 	    	/* DISPLAY METHODS */
+
+	    	showFeatures: function(o) {
+				var HTML_TEMPLATE = '<div class="featureStory"><a class="featureLink" href="{href}"><div class="title">{title}</div><img src="{image}"></a></div>',
+				html = '',
+				i = 0;
+
+				for (; i < o.length; i++) {
+					var d = {
+						title: o[i].content,
+						image: o[i].imgUrl || 'http://sandbox.tilomitra.com/crictainment/img/default-feature-image-1.png',
+						href: o[i].href
+					};
+
+					//html += "<ul id='features'>";
+					html += Y.Lang.sub(HTML_TEMPLATE, d);	
+					//html += "</ul>";
+				}
+
+				Y.one("#featureWrapper").append(html);
+
+				Y.one('#featureWrapper').setStyle('marginLeft', '-35px');
+
+	    	},
 
 	    	showStories: function(feed) {
 	    		var html = "",
@@ -65,10 +105,12 @@
 
 	    		//show most recent 6 feeds
 	    		for (var i = 0; i < len; i++) {
-	    			console.log(this._determineFeedHost(feed[i].link));
+	    			//console.log(this._determineFeedHost(feed[i].link));
+	    			var o = this._determineFeedHost(feed[i].link);
+
 	    			html += '<div class="yui3-u-7-24 story"><a href="'+feed[i].link+'">';
 	    			html += '<h3>'+feed[i].title+'</h3>';
-	    			html += '<p class="author"> From '+this._determineFeedHost(feed[i].link)+'</p>';
+	    			html += '<p class="yui3-u author ' + o.cls + '">From '+ o.url +'</p>';
 	    			html += '<p>'+this._stripHTML(feed[i].description)+'</p>';
 	    			html += "</a></div>";
 	    		}
@@ -77,24 +119,7 @@
 
 	    	},
 
-	    	showFeatures: function(o) {
-	    			var HTML_TEMPLATE = '<div class="yui3-u-1-3 featureStory" data={href}><a href="{href}"><div class="title">{title}</div><img src="{image}"></a></div>',
-	    			html = '',
-	    			i = 0;
-
-	    			for (; i < o.length; i++) {
-	    				var d = {
-	    					title: o[i].content,
-	    					image: o[i].imgUrl,
-	    					href: o[i].href
-	    				};
-
-	    				html += Y.Lang.sub(HTML_TEMPLATE, d);	
-	    			}
-
-	    			Y.one("#featureWrapper").append(html);
-
-	    	},
+	    	
 
 
 	    	/* UTILITY METHODS */
@@ -131,11 +156,24 @@
 	    			"www.espncricinfo.com": "Cricinfo"
 	    		};
 
+	    		var classes = {
+	    			"live-feeds.cricbuzz.com": "cricbuzz-cls",
+		    		"timesofindia.feedsportal.com": "timesofindia-cls",
+		    		"cricketnext.in.com": "cricketnext-cls",
+		    		"www.espncricinfo.com": "cricinfo-cls",
+	    		};
+
 	    		if (hash[url]) {
-	    			return hash[url];
+	    			return {
+		    			url: hash[url],
+		    			cls: classes[url]
+			    	};
 	    		}
 	    		else {
-	    			return url;
+	    			return {
+		    			url: url,
+		    			cls: ""
+			    	};
 	    		}
 	    	}
 	    }

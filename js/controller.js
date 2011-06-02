@@ -5,13 +5,20 @@
 	    Y.controller = {
 	    	init: function() {
 				this.listen();
-				this.listenToMenubar();	
+				this.listenToMenubar();
+				this.listenToFeatures();
 			},
 			listen: function() {
 
 				var self = this;
 				Y.all('#stories a, #stories div').each(function(n) {
 					self.stop(n);
+				});
+			},
+
+			listenToFeatures: function() {
+				Y.all(".featureLink").each(function(n) {
+					n.on('click', Y.data.fetchCricinfoArticle);
 				});
 			},
 

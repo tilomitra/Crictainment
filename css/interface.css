@@ -115,18 +115,39 @@ h1  {
 	text-align:center;
 	font-weight:lighter;
 }
+
+
+#featureWrapper2 {
+	position: absolute;
+	background: transparent;
+	margin:0; padding:0;
+	max-height:370px;
+	left: 21px;
+	top: 70px;
+	bottom: 0px;
+	width:981px;
+	overflow:hidden;
+}
+
 #featureWrapper {
 	text-align:center;
 	max-height:370px;
-	overflow:hidden;
+/*	overflow:hidden;*/
 	background:#131212;
 	-webkit-box-shadow:0px 0px 10px #333;
 	border-bottom:1px solid #343638;
-	margin-top:-45px;
 	z-index:100;
+	width:5000px;
+	-webkit-transform: translate3d(0,0,0);
+	margin:0 -35px 0 0; padding:0;
 }
+
 #featureWrapper .featureStory {
-	overflow:hidden;
+	
+	display:inline-block;
+	width:300px;
+	margin-top: -197px;
+	margin-left: 33px;
 }
 
 .featureStory a {
@@ -141,7 +162,7 @@ h1  {
 
 #featureWrapper .featureStory .title {
 	position: relative;
-	top: 258px;
+	top: 308px;
 	left: 0px;
 	z-index: 100;
 	background: rgba(0, 0, 0, 0.79);
@@ -164,6 +185,7 @@ h1  {
 	list-style-type: none;
 	padding-right:20px;
 }
+
 #storiesContainer {
 	position: absolute;
 	background: transparent;
@@ -210,10 +232,33 @@ h1  {
 }
 
 #storiesWrapper .story p.author {
-	margin: -12px 0 10px 0;
-	color: #295773;
+	margin: 0px 0 10px 0;
 	font-size: 11px;
-	font-weight: bold;
+	font-weight: normal;
+	padding: 0px 18px;
+	-webkit-border-radius: 9px;
+}
+
+
+.cricketnext-cls {
+	background:#af0000;
+	color: #490404;
+}
+
+.cricinfo-cls {
+	
+	background:#ffe400;
+	color: #81800e;
+}
+
+.cricbuzz-cls {
+	background:#28ab1e;
+	color: #d1ff6f;
+}
+
+.timesofindia-cls {
+	background:#ef6b13;
+	color: #ffc9a8;
 }
 
 .story h3 {
@@ -228,3 +273,4 @@ h1  {
 	text-decoration:none;
 	color:#b0b1b1;
 }
+

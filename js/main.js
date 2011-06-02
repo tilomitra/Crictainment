@@ -13,7 +13,8 @@ YUI({
 			fullpath: "http://sandbox.tilomitra.com/crictainment/js/controller.js",
 			requires: ['base','data','ui']
 		}
-	}
+	},
+	filter: "raw"
 
 }).use('data', 'ui', 'controller', function(Y) {
 
