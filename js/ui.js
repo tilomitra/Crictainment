@@ -58,18 +58,19 @@ YUI.add('ui', function(Y) {
 			scrollView.render();
 		},
 
-		createNewsOverlay: function(content) {
-			var overlay = new Y.Overlay({
+		//o has properties content, imgUrl, header
+		createNewsOverlay: function(o) {
+			var html = '<div id="supportingImg"><img src="'+o.imgUrl+'"></div><div id="content">'+o.content+'</div>',
+			overlay = new Y.Overlay({
 				width:600,
-				height:600,
-				centered:true,
-				bodyContent: content,
-				visible: false,
+				x:212,
+				y:256,
+				bodyContent: html,
+				headerContent: o.header,
+				visible: true,
 				zIndex:1000,
 				plugins: [Y.Plugin.OverlayModal]
 			});
-
-			overlay.render('#newsOverlay');
 			return overlay;
 		}
 	};

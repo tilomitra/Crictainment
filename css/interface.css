@@ -72,14 +72,38 @@ h1  {
 .yui3-overlay-mask {
 	background: rgba(0,0,0,0.8);
 }
-.yui3-overlay {
+#newsOverlay .yui3-overlay-content {
 	background:white;
 	box-shadow:0 0 10px rgba(0,0,0,0.5);
 	padding:15px;
 	color: #333;
 	outline:none;
 	-webkit-border-radius:5px;
+	text-align:left;
+	line-height:22px;
+	margin:20px;
+}
 
+#newsOverlay .yui3-widget-hd {
+	font-family:"ArvoRegular";
+	font-size: 24px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #CCC;
+	margin-bottom: 20px;
+
+}
+#newsOverlay #content {
+	text-align: left;
+	font-family: sans-serif;
+	line-height: 25px;
+	font-size: 13px;
+}
+#newsOverlay #supportingImg {
+	float:right;
+	margin:0 0 15px 15px;
+}
+#newsOverlay #supportingImg img {
+	border:1px solid #ccc;
 }
 #wrapper {
 	width:1024px;

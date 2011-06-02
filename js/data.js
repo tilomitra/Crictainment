@@ -55,22 +55,37 @@
 	    			
 	    	},
 
+	    	//get the data for the cricinfo article given some article was clicked. get content + img, launch overlay.
 	    	fetchCricinfoArticle: function(e) {
 	    		e.preventDefault();
 	    		
 	    		var href = e.currentTarget._stateProxy.href,
-	    		query = "select * from html where url='"+ href + "' and xpath='//div[@id=" + '"storyTxt"' + "]'",
+	    		query = "select * from html where url='"+href+"' and xpath='//p[@class=\"news-body\"] | //td[@class=\"phototbl\"]/img | //h1[@class=\"magHead\"]'",
 	    		self = this,
-	    		content = undefined;
+	    		o = {
+	    			content	: '',
+	    			imgUrl	: '',
+	    			header	: ''
+	    		};
 
-	    		console.log(href);
+
 	    		Y.YQL(query, function(r) {
-	      			
-	      			content = r.results[0];
-	      			var olay = Y.ui.createNewsOverlay(content);
-	      			olay.set('visible', true);
 
-	      		}, {format:'xml'});
+	    			//get the header
+	    			o.header = r.query.results.h1.content;
+
+	      			//concat the content
+	      			for (var i=0; i<r.query.results.p.length; i++) {
+	      				o.content += '<p>'+r.query.results.p[i].content+'</p>';
+	      			}
+	      			
+	      			//provide img url
+	      			o.imgUrl = 'http://www.cricinfo.com' + r.query.results.img.src;
+
+	      			var olay = Y.ui.createNewsOverlay(o);
+	      			olay.render('#newsOverlay');
+
+	      		});
 	    	},
 
 
