@@ -156,22 +156,38 @@ h1  {
 #featureWrapper {
 	text-align:center;
 	max-height:370px;
-/*	overflow:hidden;*/
+	overflow:hidden;
 	background:#131212;
 	-webkit-box-shadow:0px 0px 10px #333;
 	border-bottom:1px solid #343638;
 	z-index:100;
 	width:5000px;
 	-webkit-transform: translate3d(0,0,0);
-	margin:0 -35px 0 0; padding:0;
+	margin:0 0 0 0; padding:0;
+}
+
+#featureWrapper td {
+	width:300px;
+	height:330px;
+	margin:0;
+	padding:0;
+	vertical-align:top;
+}
+#featureWrapper table {
+	position:relative;
+	top:0; left:30px;
 }
 
 #featureWrapper .featureStory {
 	
 	display:inline-block;
-	width:300px;
-	margin-top: -197px;
+	margin-top:-96px;
+/*	width:300px;
+	position: relative;
+	top: 0;
+	left: 0;
 	margin-left: 33px;
+	margin-top: -200px;*/
 }
 
 .featureStory a {

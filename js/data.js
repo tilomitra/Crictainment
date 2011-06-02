@@ -92,7 +92,7 @@
 	    	/* DISPLAY METHODS */
 
 	    	showFeatures: function(o) {
-				var HTML_TEMPLATE = '<div class="featureStory"><a class="featureLink" href="{href}"><div class="title">{title}</div><img src="{image}"></a></div>',
+				var HTML_TEMPLATE = '<td><div class="featureStory"><a class="featureLink" href="{href}"><div class="title">{title}</div><img src="{image}"></a></div></td>',
 				html = '',
 				i = 0;
 
@@ -103,11 +103,10 @@
 						href: o[i].href
 					};
 
-					//html += "<ul id='features'>";
 					html += Y.Lang.sub(HTML_TEMPLATE, d);	
-					//html += "</ul>";
+					
 				}
-
+				html =  "<table><tr>" + html + "</tr></table>";
 				Y.one("#featureWrapper").append(html);
 
 				Y.one('#featureWrapper').setStyle('marginLeft', '-35px');
