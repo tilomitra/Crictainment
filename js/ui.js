@@ -9,10 +9,16 @@ YUI.add('ui', function(Y) {
 		showNewsBar: function() {
 
 			var v = Y.one('#videoWrapper'),
-			s = Y.one("#storiesWrapper");
+			s = Y.one("#storiesWrapper"),
+			p = Y.one("#photoWrapper");
 			
 			//if videoWrapper exists and is not hidden
 			if (v && !(v.hasClass('hide'))) {
+				v.addClass('hide');
+			}
+
+			//if photoWrapper exists and is not hidden
+			if (p && !(p.hasClass('hide'))) {
 				v.addClass('hide');
 			}
 
@@ -27,12 +33,19 @@ YUI.add('ui', function(Y) {
 
 		showVideosBar: function() {
 			var s = Y.one("#storiesWrapper"),
-				v = Y.one('#videoWrapper');
+				v = Y.one('#videoWrapper'),
+				p = Y.one("#photoWrapper");
 
 			//if stories wrapper exists and is not hidden
 			if (s && !(s.hasClass('hide'))) {
 				s.addClass('hide');
 			}
+
+			//if photoWrapper exists and is not hidden
+			if (p && !(p.hasClass('hide'))) {
+				p.addClass('hide');
+			}
+
 
 			if (v.hasClass('hide')) {
 				v.removeClass('hide');
@@ -41,26 +54,50 @@ YUI.add('ui', function(Y) {
 
 		},
 
-		showVideoHead: function() {
-			var bar = Y.one("#colorHead"),
-			h3 = Y.one('#colorHead h3');
 
-			bar.removeClass('newsHead').addClass('videoHead');
+		showPhotosBar: function() {
+			var s = Y.one("#storiesWrapper"),
+				v = Y.one('#videoWrapper'),
+				p = Y.one("#photoWrapper");
+
+			//if stories wrapper exists and is not hidden
+			if (s && !(s.hasClass('hide'))) {
+				s.addClass('hide');
+			}
+
+			//if videowrapper exists and is not hidden
+			if (v && !(v.hasClass('hide'))) {
+				v.addClass('hide');
+			}
+
+
+			if (p.hasClass('hide')) {
+				p.removeClass('hide');
+			}
+			
+
+		},
+
+
+		showVideoHead: function() {
+			var h3 = Y.one('#colorHead h3');
 			h3.setContent('Videos and Highlights');
 		},
 
 		showNewsHead: function() {
-			var bar = Y.one("#colorHead"),
-			h3 = Y.one('#colorHead h3');
-
-			bar.removeClass('videoHead').addClass('newsHead');
+			var h3 = Y.one('#colorHead h3');
 			h3.setContent('News and Views');
+		},
+
+		showPhotoHead: function() {
+			var h3 = Y.one('#colorHead h3');
+			h3.setContent('Recent Photos');
 		},
 
 		createLoadingIndicator: function() {
 			this._loader = new Y.Overlay({
 				srcNode: "#load",
-				bodyContent: "Your content is loading...",
+				bodyContent: "crictainment is refreshing your content...",
 				centered:true,
 				visible:false,
 				width: 200,
@@ -117,8 +154,8 @@ YUI.add('ui', function(Y) {
 			if (Y.Lang.isUndefined(self._newsOverlay)) {
 				
 				var overlay = new Y.Overlay({
-					width:650,
-					x:212,
+					width:800,
+					x:112,
 					y:100,
 					bodyContent: html,
 					headerContent: o.header,

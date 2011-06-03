@@ -5,6 +5,7 @@
 	    Y.data = {
 	    	//object of videos retrieved from cricketOnline
 	    	videoData: undefined,
+	    	pictureData: undefined,
 
 	    	//fetch stuff from pipe
 	    	fetchStories: function() {
@@ -113,11 +114,7 @@
 	      			o.imgUrl = 'http://www.cricinfo.com' + r.query.results.img.src;
 
 	      			var overlay = Y.ui.createNewsOverlay(o);
-	      			overlay.get('contentBox').addClass('animate translate-3d');
-
-	      			overlay.show(function() {
-	      				overlay.removeClass('animate translate-3d');
-	      			});
+	      			Y.later(500, overlay, "show");
 	      			Y.controller.listenToNewsClose(overlay);
 	      			//overlay.get('contentBox').removeClass('animate translate-3d');
 	      			//Y.later(1000, function()); //overlay.set('visible', true);
@@ -125,6 +122,30 @@
 	      			
 
 	      		});
+	    	},
+
+	    	//fetches array of preview images and their larger images from Yahoo Cricket Photos of the Week
+	    	fetchPictures: function() {
+	    		var q = "select * from html where url=\"http://www.espncricinfo.com/ci/content/image/517673.html?page=1\" and xpath='//div[@id=\"pList\"]/ul/li/div/span/a/img'",
+	    		self = this;
+	    		Y.YQL(q, function(r) {
+	    			var pics = r.query.results.img;
+
+	    			self.pictureData = pics;
+
+	    			self.showPictures();
+
+	    		});	
+	    	},
+
+	    	fetchPhotoDetail: function(key) {
+	    		var index = key.split('-')[1],
+	    		s = this.pictureData[index].src.split('.icon'),
+	    		fullUrl = "http://www.espncricinfo.com" + s[0] + s[1];
+	    		this.showPhotoDetail({
+	    			url: fullUrl,
+	    			caption: this.pictureData[index].title
+	    		});
 	    	},
 
 
@@ -177,7 +198,7 @@
     			    minWidth: 981,
     			    minHeight: 100,
     			    maxWidth: 981,
-    			    maxHeight: 680,
+    			    maxHeight: 720,
     			    preserveRatio: false
     		    });
 
@@ -195,7 +216,7 @@
 	    			});
 	    		}
 
-	    		html += '</div><div id="videoDetailWrap"><div class="scrollable vertical yui3-u-1" id="videoDetail"><div id="detailPlaceholder"><img src="img/video-icon.png">Select a reel from the left.</div></div></div></div>';
+	    		html += '</div><div id="videoDetailWrap"><div class="scrollable vertical yui3-u-1" id="videoDetail"><div class="detailPlaceholder"><img src="img/vid-icon.png"><div class="label">Select a reel from the left.</div></div></div></div></div>';
 
 	    		//hide the news stuff
 	    		Y.ui.hideNewsBar();
@@ -229,6 +250,38 @@
 
 	    		
 	    		detailDiv.appendChild(html);
+	    	},
+
+	    	//o is object literal with url, caption properties
+	    	showPhotoDetail: function(o) {
+	    		var html = '<div id="largeImage"><img src="'+o.url+'"><div class="caption">'+o.caption+'</div></div>',
+	    		detailPhoto = Y.one("#photoDetail");
+
+	    		detailPhoto.get('children').remove();
+
+	    		detailPhoto.appendChild(html);
+	    	},
+
+	    	showPictures: function() {
+	    		var template = '<div class="yui3-u-1-3 thumb" id="thumb-{num}"><img src="{src}"></div>',
+	    		html = '<div class="yui3-u-1" id="photoWrapper"><div class="scrollable vertical horizontal yui3-u-1-3" id="thumbList">';
+
+	    		for (var i = 0; i < this.pictureData.length; i++) {
+	    			html += Y.Lang.sub(template, {
+	    				src: 'http://www.espncricinfo.com' + this.pictureData[i].src,
+	    				num: ''+i
+	    			});
+	    		}
+
+	    		html += '</div><div id="photoDetailWrap"><div class="scrollable vertical yui3-u-1" id="photoDetail"><div class="detailPlaceholder"><img src="img/photo-icon.png"><div class="label">Browse photos from the left.</div></div></div></div></div>';
+
+	    		//hide the news stuff
+	    		//Y.ui.hideNewsBar();
+	    		//hide the video stuff
+
+	    		Y.one("#storiesContainer").appendChild(html);
+
+	    		Y.controller.listenToPhotoList();
 	    	},
 
 

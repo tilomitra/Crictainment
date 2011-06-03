@@ -7,6 +7,7 @@
 				this.listen();
 				this.listenToFooter();
 				this.listenToFeatures();
+				this.listenToRefresh();
 			},
 			listen: function() {
 
@@ -28,6 +29,10 @@
 				Y.one(".yui3-overlay-mask").on('click', function(e) {
 					overlay.set('visible', false);
 				});	
+
+				Y.one('.closeNewsOverlayBtn').on('click', function(e) {
+					overlay.set('visible', false);
+				});
 			},
 
 			stop: function(n) {
@@ -36,6 +41,14 @@
 					e.preventDefault();
 					//alert('ello');
 				});
+			},
+
+			listenToRefresh: function() {
+				Y.one('#refreshBtn').on('click', function(e) {
+					e.preventDefault();
+					Y.ui.createLoadingIndicator();
+					Y.later(200, window.location, "reload");
+				});	
 			},
 
 			listenToVideoList: function() {
@@ -53,9 +66,30 @@
 				});
 			},
 
+			listenToPhotoList: function() {
+				Y.all('.thumb').each(function(n) {
+					n.on('click', function(e) {
+						//console.log(e);
+						//alert(e.currentTarget._node.id);
+						var selected = Y.one('.selectedPic');
+						if (selected) {
+							selected.removeClass('selectedPic');
+						}
+						e.currentTarget._node.className += ' selectedPic';
+						Y.data.fetchPhotoDetail(e.currentTarget._node.id);
+					});
+				});	
+			},
+
 			listenToFooter: function() {
 				Y.one('#videosLink').on('click', function(e) {
+
 					e.preventDefault();
+					if (Y.one('.selectedLink')) {
+						Y.one('.selectedLink').removeClass('selectedLink');
+					}
+					
+					this.addClass('selectedLink');
 					Y.ui.showVideoHead();
 					if (Y.one("#videoWrapper")) {
 						Y.ui.showVideosBar();
@@ -67,11 +101,31 @@
 				});
 
 				Y.one('#newsLink').on('click', function(e) {
-					e.preventDefault();
 
+					e.preventDefault();
+					if (Y.one('.selectedLink')) {
+						Y.one('.selectedLink').removeClass('selectedLink');
+					}
+					this.addClass('selectedLink');
 					//no need to fetch since it will prefetch. just show it
 					Y.ui.showNewsBar();
 					Y.ui.showNewsHead();
+				});
+
+				Y.one("#photosLink").on('click', function(e) {
+
+					e.preventDefault();
+					if (Y.one('.selectedLink')) {
+						Y.one('.selectedLink').removeClass('selectedLink');
+					}
+					this.addClass('selectedLink');
+					Y.ui.showPhotoHead();
+					if (Y.one("#photoWrapper")) {
+						Y.ui.showPhotosBar();
+					}
+					else {
+						Y.data.fetchPictures();
+					}
 				});
 			}
 	    }
