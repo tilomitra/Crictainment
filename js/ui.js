@@ -155,7 +155,7 @@ YUI.add('ui', function(Y) {
 				
 				var overlay = new Y.Overlay({
 					width:800,
-					x:112,
+					x:65,
 					y:100,
 					bodyContent: html,
 					headerContent: o.header,

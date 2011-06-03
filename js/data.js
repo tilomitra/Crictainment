@@ -42,7 +42,7 @@
 	    				}
 	    			}
 
-	    			Y.one("#featureWrapper").setStyle('width', items.length*310 +'px');
+	    			Y.one("#featureWrapper").setStyle('width', items.length*330 +'px');
 	    			self.showFeatures(items);
 	    		});
 	    	},
@@ -114,7 +114,8 @@
 	      			o.imgUrl = 'http://www.cricinfo.com' + r.query.results.img.src;
 
 	      			var overlay = Y.ui.createNewsOverlay(o);
-	      			Y.later(500, overlay, "show");
+	      			overlay.show();
+	      			Y.one('#newsOverlay').setStyle('display', 'block');
 	      			Y.controller.listenToNewsClose(overlay);
 	      			//overlay.get('contentBox').removeClass('animate translate-3d');
 	      			//Y.later(1000, function()); //overlay.set('visible', true);
@@ -198,7 +199,7 @@
     			    minWidth: 981,
     			    minHeight: 100,
     			    maxWidth: 981,
-    			    maxHeight: 720,
+    			    maxHeight: 696,
     			    preserveRatio: false
     		    });
 
