@@ -43,6 +43,11 @@
 					n.on('click', function(e) {
 						//console.log(e);
 						//alert(e.currentTarget._node.id);
+						var selected = Y.one('.selected');
+						if (selected) {
+							selected.removeClass('selected');
+						}
+						e.currentTarget._node.className += ' selected';
 						Y.data.fetchVideoDetail(e.currentTarget._node.id);
 					});
 				});
@@ -51,6 +56,7 @@
 			listenToFooter: function() {
 				Y.one('#videosLink').on('click', function(e) {
 					e.preventDefault();
+					Y.ui.showVideoHead();
 					if (Y.one("#videoWrapper")) {
 						Y.ui.showVideosBar();
 					}
@@ -65,6 +71,7 @@
 
 					//no need to fetch since it will prefetch. just show it
 					Y.ui.showNewsBar();
+					Y.ui.showNewsHead();
 				});
 			}
 	    }

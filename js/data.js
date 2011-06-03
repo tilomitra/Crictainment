@@ -41,6 +41,7 @@
 	    				}
 	    			}
 
+	    			Y.one("#featureWrapper").setStyle('width', items.length*310 +'px');
 	    			self.showFeatures(items);
 	    		});
 	    	},
@@ -62,20 +63,24 @@
 	    		//get the number from the end of the id
 	    		var index = key.split('-')[1],
 	    		link = this.videoData[index].link,
+	    		title = this.videoData[index].title,
 	    		q = "select p.iframe from html where url=\""+ link + "\" and xpath='//div[@class=\"entry-content\"]'";
 	    		
 	    		console.log(this.videoData);
 	    		Y.YQL(q, function(r) {
-	    			var vids = [];
+	    			var o = {
+	    				videos: [],
+	    				title: title
+		    		};
 
 	    			//if there are some iframes returned..
 	    			if (r.query.results.div !== null) {
 	    				r = r.query.results.div;
 	    				for (var i = 0; i < r.length; i++) {
-	    					vids[i] = r[i].p.iframe;
+	    					o.videos[i] = r[i].p.iframe;
 	    				}
 	    			}
-	    			Y.data.showVideoDetail(vids);
+	    			Y.data.showVideoDetail(o);
 
 	    		});
 	    	},
@@ -164,6 +169,17 @@
 	    		}
 
 	    		Y.one('#storiesWrapper').appendChild(html);
+	    		
+	    		var resize = new Y.Resize({
+	    			node: Y.one("#storiesContainer")
+	    		});
+    		    resize.plug(Y.Plugin.ResizeConstrained, {
+    			    minWidth: 981,
+    			    minHeight: 100,
+    			    maxWidth: 981,
+    			    maxHeight: 680,
+    			    preserveRatio: false
+    		    });
 
 	    	},
 
@@ -175,11 +191,11 @@
 	    			html += Y.Lang.sub(template, {
 	    				title: items[i].title,
 	    				num: ''+i,
-	    				desc: items[i].description
+	    				desc: this._stripHTML(items[i].description)
 	    			});
 	    		}
 
-	    		html += '</div><div id="videoDetailWrap"><div class="scrollable vertical yui3-u-1" id="videoDetail"></div></div></div>';
+	    		html += '</div><div id="videoDetailWrap"><div class="scrollable vertical yui3-u-1" id="videoDetail"><div id="detailPlaceholder"><img src="img/video-icon.png">Select a reel from the left.</div></div></div></div>';
 
 	    		//hide the news stuff
 	    		Y.ui.hideNewsBar();
@@ -190,11 +206,14 @@
 	    			
 	    	},
 	    	
-	    	showVideoDetail: function(videos) {
+
+	    	//o is objectliteral with title, videos[] 
+	    	showVideoDetail: function(o) {
 
 
 
-	    		var html = '',
+	    		var html = '<h4>Watching highlights for '+ o.title + '</h4>',
+	    		videos = o.videos,
 	    		detailDiv = Y.one('#videoDetail');
 
 	    		detailDiv.get('children').remove();
@@ -205,7 +224,7 @@
 					}	    			
 	    		}
 	    		else {
-	    			html += "No videos found";
+	    			html = "<h4>Videos could not be retrieved.</h4>";
 	    		}
 
 	    		
@@ -270,5 +289,5 @@
 	    }
 	 
 	}, '1.0' /* module version */, {
-	    requires: ['base', 'yql']
+	    requires: ['base', 'yql', 'resize-base', 'resize-constrain', 'controller']
 	});

@@ -2,11 +2,11 @@ YUI({
 	modules: {
 		ui: {
 			fullpath: "http://sandbox.tilomitra.com/crictainment/js/ui.js",
-			requires: ['base', 'scrollview-base', 'scrollview-paginator', 'overlay', 'gallery-overlay-extras']
+			requires: ['base', 'overlay', 'gallery-overlay-extras', 'controller']
 		},
 		data: {
 			fullpath: "http://sandbox.tilomitra.com/crictainment/js/data.js",
-			requires: ['base', 'yql']
+			requires: ['base', 'yql', 'resize-base', 'resize-constrain', 'controller']
 		},
 
 		controller: {

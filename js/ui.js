@@ -41,6 +41,22 @@ YUI.add('ui', function(Y) {
 
 		},
 
+		showVideoHead: function() {
+			var bar = Y.one("#colorHead"),
+			h3 = Y.one('#colorHead h3');
+
+			bar.removeClass('newsHead').addClass('videoHead');
+			h3.setContent('Videos and Highlights');
+		},
+
+		showNewsHead: function() {
+			var bar = Y.one("#colorHead"),
+			h3 = Y.one('#colorHead h3');
+
+			bar.removeClass('videoHead').addClass('newsHead');
+			h3.setContent('News and Views');
+		},
+
 		createLoadingIndicator: function() {
 			this._loader = new Y.Overlay({
 				srcNode: "#load",
@@ -58,41 +74,41 @@ YUI.add('ui', function(Y) {
 
 		},
 		
-		createBaseScrollView: function() {
-			/* ScrollView without scrollbar indicator */
-			var scrollview = new Y.ScrollView({
-			    srcNode:"#storiesWrapper",
-			    height:420,
-			    flick: {
-			                minDistance:2,
-			                minVelocity:0.3,
-			                axis: "y"
-			            },
-			    bounce:0.9,
-			    deceleration:0.999
-			});
+		// createBaseScrollView: function() {
+		// 	/* ScrollView without scrollbar indicator */
+		// 	var scrollview = new Y.ScrollView({
+		// 	    srcNode:"#storiesWrapper",
+		// 	    height:420,
+		// 	    flick: {
+		// 	                minDistance:2,
+		// 	                minVelocity:0.3,
+		// 	                axis: "y"
+		// 	            },
+		// 	    bounce:0.9,
+		// 	    deceleration:0.999
+		// 	});
 
-			scrollview.render();
-		},
+		// 	scrollview.render();
+		// },
 
-		createFeatureList: function() {
-			var scrollView = new Y.ScrollView({
-				id: 'scrollview',
-			    srcNode: '#featureWrapper',
-			    width: 1024,
-			    flick: {
-			        minDistance:10,
-			        minVelocity:0.3,
-			        axis: "x"
-			    }
-			});
+		// createFeatureList: function() {
+		// 	var scrollView = new Y.ScrollView({
+		// 		id: 'scrollview',
+		// 	    srcNode: '#featureWrapper',
+		// 	    width: 1024,
+		// 	    flick: {
+		// 	        minDistance:10,
+		// 	        minVelocity:0.3,
+		// 	        axis: "x"
+		// 	    }
+		// 	});
 
-			scrollView.plug(Y.Plugin.ScrollViewPaginator, {
-			        selector: "div" // elements definining page boundaries
-			});
+		// 	scrollView.plug(Y.Plugin.ScrollViewPaginator, {
+		// 	        selector: "div" // elements definining page boundaries
+		// 	});
 			 
-			scrollView.render();
-		},
+		// 	scrollView.render();
+		// },
 
 		//o has properties content, imgUrl, header
 		createNewsOverlay: function(o) {
@@ -129,5 +145,5 @@ YUI.add('ui', function(Y) {
 	};
  
 }, '1.0' /* module version */, {
-    requires: ['base', 'scrollview-base', 'scrollview-paginator', 'overlay', 'gallery-overlay-extras']
+    requires: ['base', 'overlay', 'gallery-overlay-extras', 'controller']
 });
