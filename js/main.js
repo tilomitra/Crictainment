@@ -1,16 +1,16 @@
 YUI({
 	modules: {
 		ui: {
-			fullpath: "http://sandbox.tilomitra.com/crictainment/js/ui.js",
+			fullpath: "http://sandbox.tilomitra.com/crictainment/js/ui-min.js",
 			requires: ['base', 'overlay', 'gallery-overlay-extras', 'controller']
 		},
 		data: {
-			fullpath: "http://sandbox.tilomitra.com/crictainment/js/data.js",
+			fullpath: "http://sandbox.tilomitra.com/crictainment/js/data-min.js",
 			requires: ['base', 'yql', 'resize-base', 'resize-constrain', 'controller']
 		},
 
 		controller: {
-			fullpath: "http://sandbox.tilomitra.com/crictainment/js/controller.js",
+			fullpath: "http://sandbox.tilomitra.com/crictainment/js/controller-min.js",
 			requires: ['base','data','ui']
 		}
 	},
