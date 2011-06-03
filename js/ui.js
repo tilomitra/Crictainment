@@ -6,6 +6,41 @@ YUI.add('ui', function(Y) {
 		_loader: undefined,
 		_newsOverlay: undefined,
 
+		showNewsBar: function() {
+
+			var v = Y.one('#videoWrapper'),
+			s = Y.one("#storiesWrapper");
+			
+			//if videoWrapper exists and is not hidden
+			if (v && !(v.hasClass('hide'))) {
+				v.addClass('hide');
+			}
+
+			if (s.hasClass('hide')) {
+				s.removeClass('hide');
+			}
+		},
+
+		hideNewsBar: function() {
+			Y.one("#storiesWrapper").addClass('hide');
+		},
+
+		showVideosBar: function() {
+			var s = Y.one("#storiesWrapper"),
+				v = Y.one('#videoWrapper');
+
+			//if stories wrapper exists and is not hidden
+			if (s && !(s.hasClass('hide'))) {
+				s.addClass('hide');
+			}
+
+			if (v.hasClass('hide')) {
+				v.removeClass('hide');
+			}
+			
+
+		},
+
 		createLoadingIndicator: function() {
 			this._loader = new Y.Overlay({
 				srcNode: "#load",

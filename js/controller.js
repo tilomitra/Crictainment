@@ -5,7 +5,7 @@
 	    Y.controller = {
 	    	init: function() {
 				this.listen();
-				//this.listenToMenubar();
+				this.listenToFooter();
 				this.listenToFeatures();
 			},
 			listen: function() {
@@ -38,12 +38,23 @@
 				});
 			},
 
-			listenToMenubar: function() {
-				Y.one('#menubar ul').on('click', function(e) {
+			listenToFooter: function() {
+				Y.one('#videosLink').on('click', function(e) {
 					e.preventDefault();
-					if (e.target._node.id === "videos") {
+					if (Y.one("#videoWrapper")) {
+						Y.ui.showVideosBar();
+					}
+					else {
 						Y.data.fetchVideos();
 					}
+					
+				});
+
+				Y.one('#newsLink').on('click', function(e) {
+					e.preventDefault();
+
+					//no need to fetch since it will prefetch. just show it
+					Y.ui.showNewsBar();
 				});
 			}
 	    }

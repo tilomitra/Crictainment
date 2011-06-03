@@ -46,11 +46,11 @@
 	    	//This method gets video pipe from criconline.tv
 	    	fetchVideos: function() {
 	    		
-	    		var pipe = 'http://pipes.yahoo.com/pipes/pipe.run?_id=f18764ad8f224b5e0b4bae4658245057&_render=rss';
+	    		var pipe = 'http://pipes.yahoo.com/pipes/pipe.run?_id=f18764ad8f224b5e0b4bae4658245057&_render=rss',
+	    		self = this;
 
 	    		Y.YQL('select * from rss where url = "' + pipe + '"', function(r) {
-	    			//console.log(r);
-	    			//Y.one('#scroll')
+	    			self.showVideos(r.query.results.item);
 	    		});
 	    			
 	    	},
@@ -140,6 +140,26 @@
 
 	    		Y.one('#storiesWrapper').appendChild(html);
 
+	    	},
+
+	    	showVideos: function(items) {
+	    		var template = '<div class="yui3-u-1 video"><h2>{title}</h2>{desc}</div>',
+	    		html = '<div class="yui3-u-1" id="videoWrapper"><div class="scrollable vertical yui3-u-1-3" id="videoList">';
+
+	    		for (var i = 0; i < items.length; i++) {
+	    			html += Y.Lang.sub(template, {
+	    				title: items[i].title,
+	    				desc: items[i].description
+	    			});
+	    		}
+
+	    		html += "</div></div>";
+
+	    		//hide the news stuff
+	    		Y.ui.hideNewsBar();
+
+	    		Y.one("#storiesContainer").appendChild(html);
+	    			
 	    	},
 
 	    	
