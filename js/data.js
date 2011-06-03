@@ -3,7 +3,9 @@
 	    Y.namespace('data');
 	 
 	    Y.data = {
-	    	
+	    	//object of videos retrieved from cricketOnline
+	    	videoData: undefined,
+
 	    	//fetch stuff from pipe
 	    	fetchStories: function() {
 	    		//other: http://pipes.yahoo.com/pipes/pipe.run?_id=lrs3aorM2xGxkmAOJjBjOg&_render=rss
@@ -13,7 +15,7 @@
 	    		Y.YQL(q, function(r) {
 	    			
 	    	     	//console.log(r.query.results.item);
-	    	     	self.showStories(r.query.results.item)
+	    	     	self.showStories(r.query.results.item);
 	    	     	//return r.query.results.item;
 	    	     });
 	    	},
@@ -34,7 +36,7 @@
 	    				if (items[i].image) {
 	    					l = items[i].image.length;
 	    					items[i].imgUrl = items[i].image[l - 1].content;
-	    					console.log(items[i].imgUrl);
+	    					//console.log(items[i].imgUrl);
 	    					delete items[i].image;
 	    				}
 	    			}
@@ -50,9 +52,32 @@
 	    		self = this;
 
 	    		Y.YQL('select * from rss where url = "' + pipe + '"', function(r) {
+	    			self.videoData = r.query.results.item;
 	    			self.showVideos(r.query.results.item);
 	    		});
 	    			
+	    	},
+
+	    	fetchVideoDetail: function(key) {
+	    		//get the number from the end of the id
+	    		var index = key.split('-')[1],
+	    		link = this.videoData[index].link,
+	    		q = "select p.iframe from html where url=\""+ link + "\" and xpath='//div[@class=\"entry-content\"]'";
+	    		
+	    		console.log(this.videoData);
+	    		Y.YQL(q, function(r) {
+	    			var vids = [];
+
+	    			//if there are some iframes returned..
+	    			if (r.query.results.div !== null) {
+	    				r = r.query.results.div;
+	    				for (var i = 0; i < r.length; i++) {
+	    					vids[i] = r[i].p.iframe;
+	    				}
+	    			}
+	    			Y.data.showVideoDetail(vids);
+
+	    		});
 	    	},
 
 	    	//get the data for the cricinfo article given some article was clicked. get content + img, launch overlay.
@@ -126,8 +151,8 @@
 	    		var html = "",
 	    		len = feed.length;
 
-	    		//show most recent 6 feeds
-	    		for (var i = 0; i < len; i++) {
+	    		//show 1/3 of the feeds
+	    		for (var i = 0; i < len/3; i++) {
 	    			//console.log(this._determineFeedHost(feed[i].link));
 	    			var o = this._determineFeedHost(feed[i].link);
 
@@ -143,26 +168,49 @@
 	    	},
 
 	    	showVideos: function(items) {
-	    		var template = '<div class="yui3-u-1 video"><h2>{title}</h2>{desc}</div>',
+	    		var template = '<div class="yui3-u-1 video" id="video-{num}"><h2>{title}</h2>{desc}</div>',
 	    		html = '<div class="yui3-u-1" id="videoWrapper"><div class="scrollable vertical yui3-u-1-3" id="videoList">';
 
 	    		for (var i = 0; i < items.length; i++) {
 	    			html += Y.Lang.sub(template, {
 	    				title: items[i].title,
+	    				num: ''+i,
 	    				desc: items[i].description
 	    			});
 	    		}
 
-	    		html += "</div></div>";
+	    		html += '</div><div id="videoDetailWrap"><div class="scrollable vertical yui3-u-1" id="videoDetail"></div></div></div>';
 
 	    		//hide the news stuff
 	    		Y.ui.hideNewsBar();
 
 	    		Y.one("#storiesContainer").appendChild(html);
+
+	    		Y.controller.listenToVideoList();
 	    			
 	    	},
-
 	    	
+	    	showVideoDetail: function(videos) {
+
+
+
+	    		var html = '',
+	    		detailDiv = Y.one('#videoDetail');
+
+	    		detailDiv.get('children').remove();
+
+	    		if (videos.length > 0) {
+					for (var i = 0; i < videos.length; i++) {
+						html += '<p><iframe frameborder="'+videos[i].frameborder+'" height="'+videos[i].height/1.2+'" src="'+videos[i].src+'" width="'+videos[i].width/1.2+'"></iframe></p>';
+					}	    			
+	    		}
+	    		else {
+	    			html += "No videos found";
+	    		}
+
+	    		
+	    		detailDiv.appendChild(html);
+	    	},
 
 
 	    	/* UTILITY METHODS */

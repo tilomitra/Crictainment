@@ -18,7 +18,7 @@
 
 			listenToFeatures: function() {
 				Y.all(".featureLink").each(function(n) {
-					console.log(n);
+					//console.log(n);
 					//console.log(Y.Node.create(n._node.parentNode).getDOMNode());
 					n.on('click', Y.data.fetchCricinfoArticle);
 				});
@@ -35,6 +35,16 @@
 				n.on('click', function(e) {
 					e.preventDefault();
 					//alert('ello');
+				});
+			},
+
+			listenToVideoList: function() {
+				Y.all('.video').each(function(n) {
+					n.on('click', function(e) {
+						//console.log(e);
+						//alert(e.currentTarget._node.id);
+						Y.data.fetchVideoDetail(e.currentTarget._node.id);
+					});
 				});
 			},
 

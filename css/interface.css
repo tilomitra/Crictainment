@@ -350,6 +350,31 @@ h1  {
 	color:white;
 	-webkit-transform: translate3d(0,0,0);
 }
+#videoDetailWrap {
+	bottom: 0;
+	margin: 0;
+	overflow: hidden;
+	padding: 10px;
+	width: 564px;
+	position: absolute;
+	top: 13px;
+	left: 379px;
+	-webkit-transform: translate3d(0,0,0);
+	text-align: left;
+}
+#videoDetail {
+	background: transparent;
+	text-align:center;
+	z-index: 100;
+	font-size: 14px;
+	padding: 2px 10px;
+	line-height:29px;
+	color:white;
+	-webkit-transform: translate3d(0,0,0);
+}
+#videoDetail iframe {
+	display:inline-block;
+}
 
 #videoList .video {
 	display:inline-block;
