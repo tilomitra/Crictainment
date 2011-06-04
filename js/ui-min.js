@@ -1,0 +1,10 @@
+
+YUI.add('ui',function(Y){Y.namespace('ui');Y.ui={_loader:undefined,_newsOverlay:undefined,showNewsBar:function(){var v=Y.one('#videoWrapper'),s=Y.one("#storiesWrapper"),p=Y.one("#photoWrapper");if(v&&!(v.hasClass('hide'))){v.addClass('hide');}
+if(p&&!(p.hasClass('hide'))){v.addClass('hide');}
+if(s.hasClass('hide')){s.removeClass('hide');}},hideNewsBar:function(){Y.one("#storiesWrapper").addClass('hide');},showVideosBar:function(){var s=Y.one("#storiesWrapper"),v=Y.one('#videoWrapper'),p=Y.one("#photoWrapper");if(s&&!(s.hasClass('hide'))){s.addClass('hide');}
+if(p&&!(p.hasClass('hide'))){p.addClass('hide');}
+if(v.hasClass('hide')){v.removeClass('hide');}},showPhotosBar:function(){var s=Y.one("#storiesWrapper"),v=Y.one('#videoWrapper'),p=Y.one("#photoWrapper");if(s&&!(s.hasClass('hide'))){s.addClass('hide');}
+if(v&&!(v.hasClass('hide'))){v.addClass('hide');}
+if(p.hasClass('hide')){p.removeClass('hide');}},showVideoHead:function(){var h3=Y.one('#colorHead h3');h3.setContent('Videos and Highlights');},showNewsHead:function(){var h3=Y.one('#colorHead h3');h3.setContent('News and Views');},showPhotoHead:function(){var h3=Y.one('#colorHead h3');h3.setContent('Recent Photos');},createLoadingIndicator:function(){this._loader=new Y.Overlay({srcNode:"#load",bodyContent:"crictainment is refreshing your content...",centered:true,visible:false,width:200,zIndex:2000,plugins:[Y.Plugin.OverlayModal,Y.Plugin.OverlayKeepaligned]});this._loader.render();this._loader.show();},createNewsOverlay:function(o){var self=this,html='<div id="supportingImg"><img src="'+o.imgUrl+'"></div><div id="content">'+o.content+'</div>';if(Y.Lang.isUndefined(self._newsOverlay)){var overlay=new Y.Overlay({width:800,x:65,y:100,bodyContent:html,headerContent:o.header,visible:false,zIndex:1000,plugins:[Y.Plugin.OverlayModal]});overlay.get('contentBox').addClass('scrollable vertical');overlay.render('#newsOverlay');self._newsOverlay=overlay;}
+else{self._newsOverlay.setAttrs({bodyContent:html,headerContent:o.header,visible:false});}
+return self._newsOverlay;}};},'1.0',{requires:['base','overlay','gallery-overlay-extras','controller']});

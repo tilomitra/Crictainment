@@ -15,6 +15,7 @@
 	    		var self = this;
 	    		Y.YQL(q, function(r) {
 	    			
+	    			console.log(r.query.results.item);
 	    	     	//console.log(r.query.results.item);
 	    	     	self.showStories(r.query.results.item);
 	    	     	//return r.query.results.item;
@@ -309,7 +310,15 @@
 
 	    	//Takes in a string and returns a string without any HTML inside it (just text)
 	    	_stripHTML: function(txt) {
-	    		return txt.replace(/<\/?[^>]+(>|$)/g, "");
+
+	    		if (txt) {
+	    			return txt.replace(/<\/?[^>]+(>|$)/g, "");
+	    		}
+
+	    		else {
+	    			return "";
+	    		}
+	    		
 	    	},
 
 	    	_humanizeSite: function(url) {

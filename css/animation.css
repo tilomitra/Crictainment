@@ -1,0 +1,22 @@
+.translate-3d.animate {
+    -webkit-animation-name: translate3danim;
+    -webkit-transform-origin: 50% 50%;
+}
+.animate {
+    -webkit-animation-duration: 1s;
+    -webkit-animation-iteration-count: 1;
+    -webkit-transform-origin: 0 0;
+    
+}
+
+@-webkit-keyframes translate3danim {
+    from {
+        -webkit-transform: perspective(600) translate3d(0, -900px, 0);
+        opacity: 1;
+    }
+    
+    to {
+        -webkit-transform: perspective(600) translate3d(0px, 0px, 0px);
+        opacity: 1;
+    }
+}
