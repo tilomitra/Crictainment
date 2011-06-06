@@ -142,6 +142,10 @@ input[type=button], a {
 	margin-bottom: 20px;
 
 }
+
+#newsOverlay .yui3-widget-bd, #newsOverlay .yui3-widget-ft, #newsOverlay .yui3-widget-hd, #newsOverlay #content {
+	-webkit-border-radius: 5px;
+}
 #newsOverlay #content {
 	text-align: left;
 	font-family: sans-serif;

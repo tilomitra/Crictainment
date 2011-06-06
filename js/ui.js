@@ -149,8 +149,15 @@ YUI.add('ui', function(Y) {
 
 		//o has properties content, imgUrl, header
 		createNewsOverlay: function(o) {
-			var self = this,
-			html = '<div id="supportingImg"><img src="'+o.imgUrl+'"></div><div id="content">'+o.content+'</div>';
+
+			var self = this, html;
+			if (!o.imgUrl) {
+				html =  '<div id="content">'+o.content+'</div>';
+			}
+			else {
+				html = '<div id="supportingImg"><img src="'+o.imgUrl+'"></div><div id="content">'+o.content+'</div>';
+			}
+			
 			if (Y.Lang.isUndefined(self._newsOverlay)) {
 				
 				var overlay = new Y.Overlay({

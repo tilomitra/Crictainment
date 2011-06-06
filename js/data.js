@@ -5,7 +5,12 @@
 	    Y.data = {
 	    	//object of videos retrieved from cricketOnline
 	    	videoData: undefined,
+
+	    	//pictures and their thumbnails
 	    	pictureData: undefined,
+
+	    	//featured articles from cricinfo and their pictures
+	    	featureData: undefined,
 
 	    	//fetch stuff from pipe
 	    	fetchStories: function() {
@@ -31,13 +36,17 @@
 
 	    			var items = r.query.results.json.value.items,
 	    			i = 0,
-	    			l = undefined;
+	    			l = undefined,
+	    			z = undefined;
 
 	    			for ( ; i < items.length; i++) {
-
-	    				if (items[i].image) {
+	    				console.log(items);
+	    				if (Y.Lang.isArray(items[i].image)) {
 	    					l = items[i].image.length;
-	    					items[i].imgUrl = items[i].image[l - 1].content;
+	    					//z = items[i].image[l-1].content || null;
+	    					//if (items[i].image[l-1].content && self._isUrl(items[i].image[l-1].content)) {
+	    						items[i].imgUrl = items[i].image[l-1].content;
+	    					//}
 	    					//console.log(items[i].imgUrl);
 	    					delete items[i].image;
 	    				}
@@ -96,7 +105,7 @@
 	    		self = this,
 	    		o = {
 	    			content	: '',
-	    			imgUrl	: '',
+	    			imgUrl	: undefined, //this may not be there at all and i dont wanna deal with empty strings
 	    			header	: ''
 	    		};
 
@@ -104,7 +113,7 @@
 	    		Y.YQL(query, function(r) {
 
 	    			//get the header
-	    			o.header = r.query.results.h1.content;
+	    			o.header = r.query.results.h1.content,
 
 	      			//concat the content
 	      			for (var i=0; i<r.query.results.p.length; i++) {
@@ -112,7 +121,9 @@
 	      			}
 	      			
 	      			//provide img url
-	      			o.imgUrl = 'http://www.cricinfo.com' + r.query.results.img.src;
+	      			if (r.query.results.img) {
+	      				o.imgUrl = 'http://www.cricinfo.com' + r.query.results.img.src;
+	      			}
 
 	      			var overlay = Y.ui.createNewsOverlay(o);
 	      			overlay.show();
@@ -348,6 +359,11 @@
 		    			cls: ""
 			    	};
 	    		}
+	    	},
+
+	    	_isUrl: function(url) {
+    			var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
+    			return regexp.test(url);
 	    	}
 	    }
 	 
