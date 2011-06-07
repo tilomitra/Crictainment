@@ -20,8 +20,11 @@
 	    		var self = this;
 	    		Y.YQL(q, function(r) {
 	    			
-	    			console.log(r.query.results.item);
+	    			//console.log(r.query.results.item);
 	    	     	//console.log(r.query.results.item);
+
+
+	    	     	self.storeStories(r.query.results.item);
 	    	     	self.showStories(r.query.results.item);
 	    	     	//return r.query.results.item;
 	    	     });
@@ -40,7 +43,7 @@
 	    			z = undefined;
 
 	    			for ( ; i < items.length; i++) {
-
+	    				console.log(items[i]);
 	    				//store the id and imgUrl
 	    				if (Y.Lang.isArray(items[i].image)) {
 	    					l = items[i].image.length;
@@ -48,15 +51,14 @@
     						items[i].imgUrl = items[i].image[l-1].content;
 	    					delete items[i].image;
 	    				}
+
 	    			}
 
 	    			Y.one("#featureWrapper").setStyle('width', items.length*330 +'px');
-	    			this.featureData = items;
+	    			self.storeFeatures(items);
 	    			self.showFeatures(items);
 	    		});
 	    	},
-
-
 
 	    	//This method gets video pipe from criconline.tv
 	    	fetchVideos: function() {
@@ -161,6 +163,41 @@
 	    			caption: this.pictureData[index].title
 	    		});
 	    	},
+
+	    	/*STORAGE METHODS*/
+
+	    	storeFeatures: function(features) {
+	    		if (!localStorage["features"]) {
+	    			localStorage["features"] = Y.JSON.stringify(features);
+	    		}	
+	    	},
+
+	    	retrieveFeatures: function() {
+	    		var features = Y.JSON.parse(localStorage["features"]);
+	    		return features;
+	    	},
+
+	    	storeStories: function(stories) {
+	    		if (!localStorage["stories"]) {
+	    			localStorage["stories"] = Y.JSON.stringify(stories);
+	    		}
+	    	},
+
+	    	retrieveStories: function() {
+	    		var stories = Y.JSON.parse(localStorage["stories"]);
+	    		return stories;
+	    	},
+
+
+
+
+
+
+
+
+
+
+
 
 
 	    	/* DISPLAY METHODS */

@@ -111,41 +111,42 @@ YUI.add('ui', function(Y) {
 
 		},
 		
-		// createBaseScrollView: function() {
-		// 	/* ScrollView without scrollbar indicator */
-		// 	var scrollview = new Y.ScrollView({
-		// 	    srcNode:"#storiesWrapper",
-		// 	    height:420,
-		// 	    flick: {
-		// 	                minDistance:2,
-		// 	                minVelocity:0.3,
-		// 	                axis: "y"
-		// 	            },
-		// 	    bounce:0.9,
-		// 	    deceleration:0.999
-		// 	});
+		createStoriesScrollView: function() {
+			/* ScrollView without scrollbar indicator */
+			var scrollview = new Y.ScrollView({
+			    srcNode:"#storiesWrapper",
+			    height:420,
+			    flick: {
+			                minDistance:2,
+			                minVelocity:0.3,
+			                axis: "y"
+			            }//,
+			    //bounce:0.9,
+			    //deceleration:0.999
+			});
 
-		// 	scrollview.render();
-		// },
+			scrollview.render();
+		},
 
-		// createFeatureList: function() {
-		// 	var scrollView = new Y.ScrollView({
-		// 		id: 'scrollview',
-		// 	    srcNode: '#featureWrapper',
-		// 	    width: 1024,
-		// 	    flick: {
-		// 	        minDistance:10,
-		// 	        minVelocity:0.3,
-		// 	        axis: "x"
-		// 	    }
-		// 	});
-
-		// 	scrollView.plug(Y.Plugin.ScrollViewPaginator, {
-		// 	        selector: "div" // elements definining page boundaries
-		// 	});
-			 
-		// 	scrollView.render();
-		// },
+		createFeaturesScrollView: function() {
+			var scrollView = new Y.ScrollView({
+				id: 'scrollview',
+			    srcNode: '#featureWrapper',
+			    width: 1024,
+			    flick: {
+			        minDistance:3,
+			        minVelocity:0.2,
+			        axis: "x"
+			    },
+			    deceleration: 0.98,
+			    bounce:0.5,
+			});
+			Y.ScrollView.FRAME_STEP = 10;
+			scrollView.plug(Y.Plugin.ScrollViewScrollbars);
+			
+			scrollView.render();
+			scrollView.scrollbars.show();
+		},
 
 		//o has properties content, imgUrl, header
 		createNewsOverlay: function(o) {
@@ -189,5 +190,5 @@ YUI.add('ui', function(Y) {
 	};
  
 }, '1.0' /* module version */, {
-    requires: ['base', 'overlay', 'gallery-overlay-extras', 'controller']
+    requires: ['base', 'overlay', 'gallery-overlay-extras', 'scrollview-base', 'scrollview-scrollbars','controller']
 });
