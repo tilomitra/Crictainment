@@ -20,6 +20,10 @@ YUI({
 
 
 		var main = function() {
+
+			//Y.data.fetchFromHistory();
+
+
 			Y.data.fetchHeadlines();
 			Y.data.fetchStories();
 			Y.later(1500,Y.controller,"init");

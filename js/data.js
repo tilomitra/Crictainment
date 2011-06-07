@@ -40,22 +40,23 @@
 	    			z = undefined;
 
 	    			for ( ; i < items.length; i++) {
-	    				console.log(items);
+
+	    				//store the id and imgUrl
 	    				if (Y.Lang.isArray(items[i].image)) {
 	    					l = items[i].image.length;
-	    					//z = items[i].image[l-1].content || null;
-	    					//if (items[i].image[l-1].content && self._isUrl(items[i].image[l-1].content)) {
-	    						items[i].imgUrl = items[i].image[l-1].content;
-	    					//}
-	    					//console.log(items[i].imgUrl);
+    						items[i].id = i;
+    						items[i].imgUrl = items[i].image[l-1].content;
 	    					delete items[i].image;
 	    				}
 	    			}
 
 	    			Y.one("#featureWrapper").setStyle('width', items.length*330 +'px');
+	    			this.featureData = items;
 	    			self.showFeatures(items);
 	    		});
 	    	},
+
+
 
 	    	//This method gets video pipe from criconline.tv
 	    	fetchVideos: function() {
@@ -113,7 +114,7 @@
 	    		Y.YQL(query, function(r) {
 
 	    			//get the header
-	    			o.header = r.query.results.h1.content,
+	    			o.header = r.query.results.h1.content;
 
 	      			//concat the content
 	      			for (var i=0; i<r.query.results.p.length; i++) {
@@ -165,7 +166,7 @@
 	    	/* DISPLAY METHODS */
 
 	    	showFeatures: function(o) {
-				var HTML_TEMPLATE = '<td><div class="featureStory"><a class="featureLink" href="{href}"><div class="title">{title}</div><img src="{image}"></a></div></td>',
+				var HTML_TEMPLATE = '<td><div class="featureStory" id="{divId}"><a class="featureLink" href="{href}"><div class="title">{title}</div><img src="{image}"></a></div></td>',
 				html = '',
 				i = 0;
 
@@ -173,13 +174,17 @@
 					var d = {
 						title: o[i].content,
 						image: o[i].imgUrl || 'http://sandbox.tilomitra.com/crictainment/img/default-feature-image-1.png',
-						href: o[i].href
+						href: o[i].href,
+						divId: "feature-"+o[i].id
 					};
 
 					html += Y.Lang.sub(HTML_TEMPLATE, d);	
 					
 				}
-				html =  "<table><tr>" + html + "</tr></table>";
+				html =  "<table><tr>" + html + "</tr></table";
+
+				Y.one('#featureWrapper').get('children').remove();
+
 				Y.one("#featureWrapper").append(html);
 
 				Y.one('#featureWrapper').setStyle('marginLeft', '-35px');
