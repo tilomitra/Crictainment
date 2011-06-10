@@ -36,27 +36,35 @@
 	    		var self = this,
 	    		q = 'http://pipes.yahoo.com/pipes/pipe.run?_id=c3cd69ca77952e081cdaa2604bace3f9&_render=json';
 	    		Y.YQL('select * from json where url = "' + q + '"', function(r) {
+	    			
 
-	    			var items = r.query.results.json.value.items,
-	    			i = 0,
-	    			l = undefined,
-	    			z = undefined;
+	    			//if you get something back, then display it - otherwise get it from history
+	    			if (r.query.results.json) {
+		    			var items = r.query.results.json.value.items,
+		    			i = 0,
+		    			l = undefined,
+		    			z = undefined;
 
-	    			for ( ; i < items.length; i++) {
-	    				console.log(items[i]);
-	    				//store the id and imgUrl
-	    				if (Y.Lang.isArray(items[i].image)) {
-	    					l = items[i].image.length;
-    						items[i].id = i;
-    						items[i].imgUrl = items[i].image[l-1].content;
-	    					delete items[i].image;
-	    				}
+		    			for ( ; i < items.length; i++) {
+		    				console.log(items[i]);
+		    				//store the id and imgUrl
+		    				if (Y.Lang.isArray(items[i].image)) {
+		    					l = items[i].image.length;
+	    						items[i].id = i;
+	    						items[i].imgUrl = items[i].image[l-1].content;
+		    					delete items[i].image;
+		    				}
 
+		    			}
+
+		    			Y.one("#featureWrapper").setStyle('width', items.length*330 +'px');
+		    			self.storeFeatures(items);
+		    			self.showFeatures(items);
+	    			}
+	    			else {
+	    				self.showFeatures(self.retrieveFeatures());
 	    			}
 
-	    			Y.one("#featureWrapper").setStyle('width', items.length*330 +'px');
-	    			self.storeFeatures(items);
-	    			self.showFeatures(items);
 	    		});
 	    	},
 
@@ -250,11 +258,16 @@
 	    			node: Y.one("#storiesContainer")
 	    		});
     		    resize.plug(Y.Plugin.ResizeConstrained, {
-    			    minWidth: 981,
+    			    minWidth: 983,
     			    minHeight: 100,
-    			    maxWidth: 981,
+    			    maxWidth: 983,
     			    maxHeight: 696,
     			    preserveRatio: false
+    		    });
+
+    		    resize.on('resize:resize', function(e) {
+    		    	var height = e.currentTarget.info.offsetHeight;
+    		    	Y.ui._storyScrollview.set('height', height);
     		    });
 
 	    	},

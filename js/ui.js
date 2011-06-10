@@ -5,6 +5,8 @@ YUI.add('ui', function(Y) {
 	Y.ui = {
 		_loader: undefined,
 		_newsOverlay: undefined,
+		_storyScrollview: undefined,
+
 
 		showNewsBar: function() {
 
@@ -19,7 +21,7 @@ YUI.add('ui', function(Y) {
 
 			//if photoWrapper exists and is not hidden
 			if (p && !(p.hasClass('hide'))) {
-				v.addClass('hide');
+				p.addClass('hide');
 			}
 
 			if (s.hasClass('hide')) {
@@ -113,9 +115,9 @@ YUI.add('ui', function(Y) {
 		
 		createStoriesScrollView: function() {
 			/* ScrollView without scrollbar indicator */
-			var scrollview = new Y.ScrollView({
+			this._storyScrollview = new Y.ScrollView({
 			    srcNode:"#storiesWrapper",
-			    height:320,
+			    height:400,
 			    flick: {
 			                minDistance:1,
 			                minVelocity:0.4,
@@ -125,7 +127,7 @@ YUI.add('ui', function(Y) {
 			    deceleration:0.983
 			});
 
-			scrollview.render();
+			this._storyScrollview.render();
 		},
 
 		createFeaturesScrollView: function() {
@@ -144,6 +146,7 @@ YUI.add('ui', function(Y) {
 			Y.ScrollView.FRAME_STEP = 15;
 			Y.ScrollView.EASING = "cubic-bezier(0.000, 1.000, 0.320, 1.000)";			
 			scrollView.render();
+			scrollView.scrollTo(1000,0,20000,"linear");
 		},
 
 		//o has properties content, imgUrl, header
@@ -162,15 +165,16 @@ YUI.add('ui', function(Y) {
 				var overlay = new Y.Overlay({
 					width:800,
 					x:65,
-					y:100,
+					y:50,
 					bodyContent: html,
 					headerContent: o.header,
 					visible: false,
 					zIndex:1000,
 					plugins: [Y.Plugin.OverlayModal]
 				});
-				overlay.get('contentBox').addClass('scrollable vertical');
+
 				overlay.render('#newsOverlay');
+				overlay.get('contentBox').addClass('scrollable vertical');
 				self._newsOverlay = overlay;
 
 			}
