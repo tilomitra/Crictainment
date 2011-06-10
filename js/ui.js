@@ -115,14 +115,14 @@ YUI.add('ui', function(Y) {
 			/* ScrollView without scrollbar indicator */
 			var scrollview = new Y.ScrollView({
 			    srcNode:"#storiesWrapper",
-			    height:420,
+			    height:320,
 			    flick: {
-			                minDistance:2,
-			                minVelocity:0.3,
+			                minDistance:1,
+			                minVelocity:0.4,
 			                axis: "y"
-			            }//,
-			    //bounce:0.9,
-			    //deceleration:0.999
+			            },
+			    bounce:0.65,
+			    deceleration:0.983
 			});
 
 			scrollview.render();
@@ -134,18 +134,16 @@ YUI.add('ui', function(Y) {
 			    srcNode: '#featureWrapper',
 			    width: 1024,
 			    flick: {
-			        minDistance:3,
-			        minVelocity:0.2,
+			        minDistance:1,
+			        minVelocity:0.4,
 			        axis: "x"
 			    },
-			    deceleration: 0.98,
-			    bounce:0.5,
+			    deceleration: 0.983,
+			    bounce:0.65,
 			});
-			Y.ScrollView.FRAME_STEP = 10;
-			scrollView.plug(Y.Plugin.ScrollViewScrollbars);
-			
+			Y.ScrollView.FRAME_STEP = 15;
+			Y.ScrollView.EASING = "cubic-bezier(0.000, 1.000, 0.320, 1.000)";			
 			scrollView.render();
-			scrollView.scrollbars.show();
 		},
 
 		//o has properties content, imgUrl, header

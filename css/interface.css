@@ -186,13 +186,13 @@ input[type=button], a {
 #wrapper {
 	width:100%;
 	height:100%;
-	background:transparent url('../img/background-texture.png') no-repeat scroll 0 0;
+	background:transparent url('../img/background-texture.png') repeat scroll 0 0;
 	text-align:center;
 }
 #container {
 	margin:0 auto;
 	padding:0;
-	background:#030303 url('../img/container-bg-wall.png') repeat-y fixed;
+	background:#030303 url('../img/container-bg-wall.png') repeat fixed;
 	background-position: 20px top;
 	border:1px solid #333;
 	-moz-box-shadow: inset 0 0 5px 10px black;
