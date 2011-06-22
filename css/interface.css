@@ -190,6 +190,7 @@ input[type=button], a {
 	float:right;
 	top: 0;
 	margin-top:12px;
+	font-family:sans-serif;
 }
 #newsOverlay .closeNewsOverlayBtn:active {
 	background:#ED4040;
@@ -245,8 +246,8 @@ input[type=button], a {
 	font-weight:lighter;
 }
 #footer {
-	height:30px;
-	padding-top:9px;
+	height: 33px;
+	padding-top: 7px;
 	bottom:0px;
 	left:0;
 	text-align:center;

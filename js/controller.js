@@ -4,9 +4,9 @@
 	 
 	    Y.controller = {
 	    	init: function() {
-				this.listen();
+				//this.listen();
 				this.listenToFooter();
-				this.listenToFeatures();
+				this.listenToFeaturesAndCricinfo();
 				this.listenToCricketNextStories();
 				this.listenToRefresh();
 			},
@@ -18,25 +18,37 @@
 				});
 			},
 
-			listenToFeatures: function() {
-				Y.all(".featureLink").each(function(n) {
-					//console.log(n);
-					//console.log(Y.Node.create(n._node.parentNode).getDOMNode());
-					n.on('click', function(e) {
-						e.preventDefault();
-						var href = e.currentTarget._stateProxy.href;
-						Y.ui.showSpinner();
-						Y.data.fetchCricinfoArticle(href);
-						Y.ui.hideSpinner();
-					});
-				});
+			listenToFeaturesAndCricinfo: function() {
+				var fetchArticle = function(e) {
+					e.preventDefault();
+					var href = e.currentTarget._stateProxy.href;
+					Y.ui.showSpinner();
+					Y.data.fetchCricinfoArticle(href);
+					Y.ui.hideSpinner();
+				};
+
+				Y.one('#featureWrapper td').delegate("click", fetchArticle, ".featureLink");
+				Y.one('#storiesWrapper').delegate("click", fetchArticle, ".story.cricinfo-cls");
+
+				// Y.all(".featureLink, div.cricinfo-cls a").each(function(n) {
+				// 	//console.log(n);
+				// 	//console.log(Y.Node.create(n._node.parentNode).getDOMNode());
+				// 	n.on('click', function(e) {
+				// 		e.preventDefault();
+				// 		var href = e.currentTarget._stateProxy.href;
+				// 		Y.ui.showSpinner();
+				// 		Y.data.fetchCricinfoArticle(href);
+				// 		Y.ui.hideSpinner();
+				// 	});
+				// });
 			},
 
 			listenToCricketNextStories: function() {
 				Y.all("div.cricketnext-cls a").each(function(n) {
 					n.on('click', function(e) {
 						e.preventDefault();
-						console.log(e);
+						var href = e.href;
+
 					});
 				});	
 			},

@@ -1,19 +1,19 @@
 YUI({
 	modules: {
 		ui: {
-			fullpath: "http://localhost:8888/crictainment/js/ui.js",
-			//fullpath: "http://sandbox.tilomitra.com/crictainment2/js/ui.js",
+			//fullpath: "http://localhost:8888/crictainment/js/ui.js",
+			fullpath: "http://sandbox.tilomitra.com/crictainment2/js/ui.js",
 			requires: ['base', 'overlay', 'gallery-overlay-extras', 'gallery-overlay-transition', 'tmscrollview', 'controller']
 		},
 		data: {
-			fullpath: "http://localhost:8888/crictainment/js/data.js",
-			//fullpath: "http://sandbox.tilomitra.com/crictainment2/js/data.js",
+			//fullpath: "http://localhost:8888/crictainment/js/data.js",
+			fullpath: "http://sandbox.tilomitra.com/crictainment2/js/data.js",
 			requires: ['base', 'yql', 'resize-base', 'resize-constrain', 'controller', 'json']
 		},
 
 		controller: {
-			fullpath: "http://localhost:8888/crictainment/js/controller.js",
-			//fullpath: "http://sandbox.tilomitra.com/crictainment2/js/controller.js",
+			//fullpath: "http://localhost:8888/crictainment/js/controller.js",
+			fullpath: "http://sandbox.tilomitra.com/crictainment2/js/controller.js",
 			requires: ['base','data','ui', 'gallery-outside-events']
 		},
 
