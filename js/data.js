@@ -246,9 +246,10 @@
 
 	    			html += '<div class="yui3-u-7-24 story ' + o.cls + '"><a href="'+feed[i].link+'">';
 	    			html += '<h3>'+feed[i].title+'</h3>';
-	    			html += '<p class="yui3-u author ' + o.cls + '">From '+ o.url +'</p>';
 	    			html += '<p>'+this._stripHTML(feed[i].description)+'</p>';
-	    			html += "</a></div>";
+	    			html += "</a>";
+	    			html += '<p class="yui3-u-1 author ' + o.cls + '"> Fetched from <span>'+ o.url +'</span></p>';
+	    			html += "</div>";
 	    		}
 
 	    		Y.one('#storiesWrapper').appendChild(html);

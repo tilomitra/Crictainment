@@ -13,7 +13,7 @@
 			listen: function() {
 
 				var self = this;
-				Y.all('#stories a, #stories div').each(function(n) {
+				Y.all('.story a, .story div').each(function(n) {
 					self.stop(n);
 				});
 			},

@@ -147,17 +147,17 @@ input[type=button], a {
 	margin:0; padding:0;
 	bottom: 0px;
 	-webkit-transform:translate3d(0,0,0);
-	-webkit-box-shadow: -8px 0 20px rgba(0,0,0,0.5)
+	-webkit-box-shadow: -8px 0 20px rgba(0,0,0,0.5);
 
 }
 
 #newsOverlay .yui3-widget-hd {
 	font-family:"ArvoRegular";
 	font-size: 24px;
+	line-height:36px;
 	padding-bottom: 16px;
 	border-bottom: 1px solid #CCC;
-	margin-bottom: 23px;
-
+	margin-bottom: 23px;	
 }
 
 #newsOverlay .yui3-widget-bd, #newsOverlay .yui3-widget-ft, #newsOverlay .yui3-widget-hd, #newsOverlay #content {
@@ -184,7 +184,6 @@ input[type=button], a {
 	-webkit-border-radius: 9px;
 	font-size: 17px;
 	color: #CCC;
-	font-family: sans-serif;
 	padding: 7px 10px;
 	margin-left: 20px;
 	position: relative;
@@ -196,6 +195,7 @@ input[type=button], a {
 	background:#ED4040;
 	border:1px solid #9E3A3A;
 	color: #9E3A3A;
+	outline:none;
 }
 
 
@@ -221,13 +221,14 @@ input[type=button], a {
 
 #header, #footer {
 	width:100%;
-	/*background: transparent url('../img/wood-texture.png') repeat-x fixed 0 0;*/
-background: #45484d; /* Old browsers */
-background: -moz-linear-gradient(top, #45484d 0%, #000000 100%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#45484d), color-stop(100%,#000000));/* Chrome,Safari4+ */
-background: -webkit-linear-gradient(top, #45484d 0%,#000000 100%); /* Chrome10+,Safari5.1+ */
-	-webkit-box-shadow: 0px 0px 10px black;
-	-moz-box-shadow: 0px 0px 10px black;
+	background: #4e5056;
+	background: -moz-linear-gradient(top, #4e5056 0%, #000000 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#4e5056), color-stop(100%,#000000));
+	background: -webkit-linear-gradient(top, #4e5056 0%,#000000 100%);
+	background: -o-linear-gradient(top, #4e5056 0%,#000000 100%);
+	background: -ms-linear-gradient(top, #4e5056 0%,#000000 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4e5056', endColorstr='#000000',GradientType=0 );
+	background: linear-gradient(top, #4e5056 0%,#000000 100%);
 	color:white;
 	position:absolute;
 	text-align:center;
@@ -359,6 +360,7 @@ background: -webkit-linear-gradient(top, #45484d 0%,#000000 100%); /* Chrome10+,
 	padding: 12px 10px;
 	line-height: 36px;
 	max-width:320px;
+	min-height:71px;
 }
 
 /*
@@ -460,11 +462,15 @@ background: -webkit-linear-gradient(top, #45484d 0%,#000000 100%); /* Chrome10+,
 }
 
 #storiesWrapper .story p.author {
-	margin: 0px 0 10px 0;
-	font-size: 11px;
-	font-weight: normal;
-	padding: 0px 18px;
-	-webkit-border-radius: 9px;
+	margin-top: 5px;
+	text-transform: uppercase;
+	font-weight: bold;
+	font-size: 10px;
+	letter-spacing: 1px;
+	border-top: 1px dashed #2C3B47;
+	padding-top: 5px;
+	color: #405566;
+	text-shadow: 2px 2px 0 black;
 }
 
 #videoList, #thumbList {
@@ -585,34 +591,25 @@ background: -webkit-linear-gradient(top, #45484d 0%,#000000 100%); /* Chrome10+,
 
 
 
-
-
-
-
-
-p.cricketnext-cls {
-	background:#af0000;
-	color: #490404;
+p.cricketnext-cls span {
+	color: #E85151;
 }
 
-p.cricinfo-cls {
+p.cricinfo-cls span{
 	
-	background:#ffe400;
-	color: #81800e;
+	color: #ffe400;
 }
 
-p.cricbuzz-cls {
-	background:#28ab1e;
-	color: #d1ff6f;
+p.cricbuzz-cls span {
+	color: #28ab1e;
 }
 
-p.timesofindia-cls {
-	background:#ef6b13;
-	color: #ffc9a8;
+p.timesofindia-cls span {
+	color: #ef6b13;
 }
 
 .story h3 {
-	color: #74b5ff;
+	color: white;
 	font-family:"ArvoRegular";
 	font-weight:lighter;
 	text-decoration:none;

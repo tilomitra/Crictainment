@@ -151,7 +151,7 @@ YUI.add('ui', function(Y) {
 
 		instantiateNewsOverlay: function() {
 			var overlay = new Y.Overlay({
-				width:650,
+				width:512,
 				//x:,
 				//y:50,
 				align: {
