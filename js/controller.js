@@ -27,8 +27,8 @@
 					Y.ui.hideSpinner();
 				};
 
-				Y.one('#featureWrapper td').delegate("click", fetchArticle, ".featureLink");
-				Y.one('#storiesWrapper').delegate("click", fetchArticle, ".story.cricinfo-cls");
+				Y.one('#featureWrapper').delegate("click", fetchArticle, ".featureStory a");
+				Y.one('#storiesWrapper').delegate("click", fetchArticle, "div.cricinfo-cls a");
 
 				// Y.all(".featureLink, div.cricinfo-cls a").each(function(n) {
 				// 	//console.log(n);
