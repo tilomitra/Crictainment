@@ -149,48 +149,132 @@ YUI.add('ui', function(Y) {
 			scrollView.scrollTo(1000,0,20000,"linear");
 		},
 
+		instantiateNewsOverlay: function() {
+			var overlay = new Y.Overlay({
+				width:650,
+				//x:,
+				//y:50,
+				align: {
+					points: ["rc", "rc"]
+				},
+				bodyContent: "Loading",
+				visible: false,
+				zIndex:1000//,
+				//plugins: [Y.Plugin.OverlayModal]
+			});
+
+			overlay.render("#newsOverlay");
+			overlay.get('boundingBox').addClass('translate-3d');
+			overlay.get('contentBox').addClass('scrollable vertical');
+			this._newsOverlay = overlay;
+
+		},
+
 		//o has properties content, imgUrl, header
 		createNewsOverlay: function(o) {
 
-			var self = this, html;
+			var self = this,
+			html,
+			buttonHTML = '<input type="button" value="Close" class="closeNewsOverlayBtn"><br/>';
 			if (!o.imgUrl) {
 				html =  '<div id="content">'+o.content+'</div>';
 			}
 			else {
 				html = '<div id="supportingImg"><img src="'+o.imgUrl+'"></div><div id="content">'+o.content+'</div>';
 			}
+			//before bodyContent changes, slide it out
+			// self._newsOverlay.on('bodyContentChange', function(e) {
+			// 	self._newsOverlay.get('boundingBox').removeClass('slideIn').addClass('slideOut');
+			// });
 			
-			if (Y.Lang.isUndefined(self._newsOverlay)) {
-				
-				var overlay = new Y.Overlay({
-					width:800,
-					x:65,
-					y:50,
-					bodyContent: html,
-					headerContent: o.header,
-					visible: false,
-					zIndex:1000,
-					plugins: [Y.Plugin.OverlayModal]
-				});
+			//after body content changes, slide it back in.
+			self._newsOverlay.after('bodyContentChange', function(e) {
+				self._newsOverlay.get('boundingBox').removeClass('slideOut').addClass('slideIn')
+			});
 
-				overlay.render('#newsOverlay');
-				overlay.get('contentBox').addClass('scrollable vertical');
-				self._newsOverlay = overlay;
-
-			}
-
-			else {
-				self._newsOverlay.setAttrs({
-					bodyContent: html,
-					headerContent: o.header,
-					visible: false
-				});
-			}
+			self._newsOverlay.setAttrs({
+				bodyContent: html,
+				headerContent: buttonHTML + o.header,
+				visible:true
+			});
 
 			return self._newsOverlay;
+
+		},
+
+		createSpinner: function(canvas, options) {
+			if (!options) {
+			  options = {};
+			}
+			if (!options.scale) {
+			  options.scale = 1;
+			}
+			
+			var width = (options.width || 3) * options.scale;
+			var inner = (options.inner || 8.70) * options.scale;
+			var outer = (options.outer || 14.42) * options.scale;
+			var color = options.color || '#191919';
+			var count = options.sectors || 12;
+			var delay = 1000 / (options.speed || 2) / count;
+			
+			var center = Math.ceil(outer + width);
+			
+			canvas.height = canvas.width = center * 2;
+			var context = canvas.getContext('2d');
+			context.lineWidth = width;
+			context.lineCap = 'round';
+			context.strokeStyle = color;
+			
+			var lowestOpacity = 0.18
+			
+			var sectors = [];
+			var opacity = [];
+			for (var i = 0; i < count; i++) {
+			  var a = 2 * Math.PI / count * i - Math.PI / 2;
+			  var cos = Math.cos(a);
+			  var sin = Math.sin(a);
+			  sectors[i] = [inner * cos, inner * sin, outer * cos, outer * sin];
+			  opacity[i] = Math.pow(i / (count - 1), 1.8) * (1 - lowestOpacity) + lowestOpacity;
+			}
+			
+			var timer;
+			var counter = 0;
+			(function frame() {
+			  context.clearRect(0, 0, canvas.width, canvas.height);
+			  opacity.unshift(opacity.pop());
+			  for (var i = 0; i < count; i++) {
+			    context.globalAlpha = opacity[i];
+			    context.beginPath();
+			    context.moveTo(center + sectors[i][0], center + sectors[i][1]);
+			    context.lineTo(center + sectors[i][2], center + sectors[i][3]);
+			    context.stroke();
+			  }
+			  
+			  if (counter < count) {
+			    var link = document.createElement('a');
+			    link.innerHTML = canvas.id + '-' + (counter + 1);
+			    link.href = canvas.toDataURL();
+			    document.body.appendChild(link);
+			  counter += 1;
+			  }
+			  
+			  timer = setTimeout(frame, delay);
+			})();
+			
+			return function () {
+			  clearTimeout(timer);
+			};
+		},
+
+		showSpinner: function() {
+			Y.one("#loading").removeClass('hide');
+		},
+
+		hideSpinner: function() {
+			Y.one('#loading').addClass('hide');
 		}
 	};
  
 }, '1.0' /* module version */, {
-    requires: ['base', 'overlay', 'gallery-overlay-extras', 'scrollview-base', 'scrollview-scrollbars','controller']
+    requires: ['base', 'overlay', 'gallery-overlay-extras', 'gallery-overlay-transition', 'scrollview-base', 'scrollview-scrollbars','controller']
 });

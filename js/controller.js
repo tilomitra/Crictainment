@@ -7,6 +7,7 @@
 				this.listen();
 				this.listenToFooter();
 				this.listenToFeatures();
+				this.listenToCricketNextStories();
 				this.listenToRefresh();
 			},
 			listen: function() {
@@ -21,17 +22,31 @@
 				Y.all(".featureLink").each(function(n) {
 					//console.log(n);
 					//console.log(Y.Node.create(n._node.parentNode).getDOMNode());
-					n.on('click', Y.data.fetchCricinfoArticle);
+					n.on('click', function(e) {
+						e.preventDefault();
+						var href = e.currentTarget._stateProxy.href;
+						Y.ui.showSpinner();
+						Y.data.fetchCricinfoArticle(href);
+						Y.ui.hideSpinner();
+					});
 				});
 			},
 
-			listenToNewsClose: function(overlay) {
-				Y.one(".yui3-overlay-mask").on('click', function(e) {
-					overlay.set('visible', false);
+			listenToCricketNextStories: function() {
+				Y.all("div.cricketnext-cls a").each(function(n) {
+					n.on('click', function(e) {
+						e.preventDefault();
+						console.log(e);
+					});
 				});	
+			},
 
+			listenToNewsClose: function(overlay) {
+				Y.one(".yui3-overlay").on('clickoutside', function(e) {
+					overlay.get('boundingBox').removeClass('slideIn').addClass('slideOut');
+				});
 				Y.one('.closeNewsOverlayBtn').on('click', function(e) {
-					overlay.set('visible', false);
+					overlay.get('boundingBox').removeClass('slideIn').addClass('slideOut');
 				});
 			},
 
@@ -128,6 +143,14 @@
 					}
 				});
 			}
+			// ,
+
+			// slideBox: function() {
+			// 	Y.one('#box').addClass('translate-slideIn animate');
+			// 	Y.one('#box').on('click', function(e) {
+			// 		Y.one('#box').removeClass('translate-slideIn').addClass('translate-slideOut');
+			// 	});
+			// }
 	    }
 	 
 	}, '1.0' /* module version */, {

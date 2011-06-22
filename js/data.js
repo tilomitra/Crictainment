@@ -115,11 +115,8 @@
 	    	},
 
 	    	//get the data for the cricinfo article given some article was clicked. get content + img, launch overlay.
-	    	fetchCricinfoArticle: function(e) {
-	    		e.preventDefault();
-	    		
-	    		var href = e.currentTarget._stateProxy.href,
-	    		query = "select * from html where url='"+href+"' and xpath='//p[@class=\"news-body\"] | //td[@class=\"phototbl\"]/img | //h1[@class=\"magHead\"]'",
+	    	fetchCricinfoArticle: function(link) {	    		
+	    		var query = "select * from html where url='"+link+"' and xpath='//p[@class=\"news-body\"] | //td[@class=\"phototbl\"]/img | //h1[@class=\"magHead\"]'",
 	    		self = this,
 	    		o = {
 	    			content	: '',
@@ -144,8 +141,7 @@
 	      			}
 
 	      			var overlay = Y.ui.createNewsOverlay(o);
-	      			overlay.show();
-	      			Y.one('#newsOverlay').setStyle('display', 'block');
+	      			//Y.one('#newsOverlay').setStyle('display', 'block');
 	      			Y.controller.listenToNewsClose(overlay);
 	      			//overlay.get('contentBox').removeClass('animate translate-3d');
 	      			//Y.later(1000, function()); //overlay.set('visible', true);
@@ -182,9 +178,7 @@
 	    	/*STORAGE METHODS*/
 
 	    	storeFeatures: function(features) {
-	    		if (!localStorage["features"]) {
 	    			localStorage["features"] = Y.JSON.stringify(features);
-	    		}	
 	    	},
 
 	    	retrieveFeatures: function() {
@@ -193,9 +187,7 @@
 	    	},
 
 	    	storeStories: function(stories) {
-	    		if (!localStorage["stories"]) {
 	    			localStorage["stories"] = Y.JSON.stringify(stories);
-	    		}
 	    	},
 
 	    	retrieveStories: function() {
@@ -252,7 +244,7 @@
 	    			//console.log(this._determineFeedHost(feed[i].link));
 	    			var o = this._determineFeedHost(feed[i].link);
 
-	    			html += '<div class="yui3-u-7-24 story"><a href="'+feed[i].link+'">';
+	    			html += '<div class="yui3-u-7-24 story ' + o.cls + '"><a href="'+feed[i].link+'">';
 	    			html += '<h3>'+feed[i].title+'</h3>';
 	    			html += '<p class="yui3-u author ' + o.cls + '">From '+ o.url +'</p>';
 	    			html += '<p>'+this._stripHTML(feed[i].description)+'</p>';

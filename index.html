@@ -17,6 +17,7 @@
 	    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.3.0/build/cssbase/base-min.css">
 
 	    <link rel="stylesheet" href="css/interface.css" media="screen" charset="utf-8">
+	    <link rel="stylesheet" href="css/animation.css" media="screen" charset="utf-8">
 	    <link href='http://fonts.googleapis.com/css?family=Arvo' rel='stylesheet' type='text/css'>
 
 
@@ -35,7 +36,12 @@
 		</div>
 			<div class="yui3-u-23-24" id="container">
 				
-				<div id="newsOverlay" style="display:none;"></div>
+				<div id="loading" class="hide">
+					<canvas id="small"></canvas> 
+				</div>
+				<div id="newsOverlay"></div>
+
+				<!-- <div id="box"></div> -->
 				<div id="featureWrapper2">
 					<div class="yui3-u-1" id="featureWrapper"></div>
 				</div>

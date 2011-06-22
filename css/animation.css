@@ -1,22 +1,45 @@
-.translate-3d.animate {
-    -webkit-animation-name: translate3danim;
+
+.translate-3d.slideIn {
+    -webkit-animation-name: translate3dslideIn;
     -webkit-transform-origin: 50% 50%;
 }
-.animate {
-    -webkit-animation-duration: 1s;
+.translate-3d.slideOut {
+    -webkit-animation-name: translate3dslideOut;
+    -webkit-transform-origin: 50% 50%;
+}
+
+.slideIn, .slideOut {
+    -webkit-animation-duration: 0.4s;
     -webkit-animation-iteration-count: 1;
     -webkit-transform-origin: 0 0;
+    -webkit-animation-fill-mode:forwards;
     
 }
 
-@-webkit-keyframes translate3danim {
+@-webkit-keyframes translate3dslideIn {
     from {
-        -webkit-transform: perspective(600) translate3d(0, -900px, 0);
-        opacity: 1;
+        -webkit-transform: translate3d(1000px, 0, 0);
+        opacity: 0;
+        display:none;
     }
     
     to {
-        -webkit-transform: perspective(600) translate3d(0px, 0px, 0px);
+        -webkit-transform: translate3d(0, 0, 0);
         opacity: 1;
+        display:block;
+    }
+}
+
+@-webkit-keyframes translate3dslideOut {
+    from {
+        -webkit-transform: translate3d(0, 0, 0);
+        opacity: 1;
+        display:block;
+    }
+    
+    to {
+        -webkit-transform: translate3d(1000px, 0, 0);
+        opacity: 0;
+        display:none;
     }
 }

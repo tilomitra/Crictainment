@@ -61,7 +61,10 @@ html {
 }
 
 body {
-	font-family: sans-serif;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light",
+	             "Helvetica Neue", sans-serif;
+	line-height:24px;
+	color:#333;
 }
 
 h1  {
@@ -80,6 +83,25 @@ input[type=button], a {
 	background: -moz-linear-gradient(top, #0f5792 0%, #0f5792 44%, #0b273f 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#0f5792), color-stop(44%,#0f5792), color-stop(100%,#0b273f)); /* Chrome,Safari4+ */
 	background: -webkit-linear-gradient(top, #0f5792 0%,#0f5792 44%,#0b273f 100%); /* Chrome10+,Safari5.1+ */
+}
+
+#loading {
+	z-index:1000;
+	position:absolute;
+	top:50%;
+	left:50%;
+	width:75px;
+	background:transparent;
+	text-align:center;
+}
+#box {
+	z-index:1000;
+	position:absolute;
+	top:0;
+	left:-200px;
+	width:200px;
+	height:600px;
+	background:white;
 }
 #thumbList .thumb.selectedPic {
 	opacity:1;
@@ -103,44 +125,38 @@ input[type=button], a {
 	opacity:1;
 }
 
-.yui3-overlay-mask {
+/*.yui3-overlay-mask {
 	background: rgba(0,0,0,0.8);
 	-webkit-transform:translate3d(0,0,0);
-}
+}*/
 #newsOverlay .yui3-overlay-content {
 	background:white;
-	box-shadow:0 0 10px rgba(0,0,0,0.5);
-	padding:15px;
+	padding: 15px 15px 15px 25px;
 	color: #333;
 	outline:none;
-	-webkit-border-radius:5px;
 	text-align:left;
 	line-height:22px;
-	margin:20px;
 	-webkit-transform: translate3d(0,0,0);
 }
 
 
 #newsOverlay .yui3-overlay {
 	position: absolute;
-	background: transparent;
+	background: white;
 	overflow: hidden;
 	margin:0; padding:0;
-/*	width:800px;
-	left: 112px;
-	top: 100px;*/
 	bottom: 0px;
 	-webkit-transform:translate3d(0,0,0);
-	-webkit-border-radius:5px;
+	-webkit-box-shadow: -8px 0 20px rgba(0,0,0,0.5)
 
 }
 
 #newsOverlay .yui3-widget-hd {
 	font-family:"ArvoRegular";
 	font-size: 24px;
-	padding-bottom: 10px;
+	padding-bottom: 16px;
 	border-bottom: 1px solid #CCC;
-	margin-bottom: 20px;
+	margin-bottom: 23px;
 
 }
 
@@ -149,9 +165,8 @@ input[type=button], a {
 }
 #newsOverlay #content {
 	text-align: left;
-	font-family: sans-serif;
-	line-height: 25px;
-	font-size: 13px;
+	line-height: 27px;
+	font-size: 15px;
 	/*display:inline-block;*/
 }
 #newsOverlay #supportingImg {
@@ -162,7 +177,7 @@ input[type=button], a {
 	border:1px solid #ccc;
 }
 
-/*
+
 #newsOverlay .closeNewsOverlayBtn{
 	background: white;
 	border: 1px solid #CCC;
@@ -172,17 +187,17 @@ input[type=button], a {
 	font-family: sans-serif;
 	padding: 7px 10px;
 	margin-left: 20px;
-	display: inline-block;
 	position: relative;
-	right: -116px;
+	float:right;
 	top: 0;
+	margin-top:12px;
 }
 #newsOverlay .closeNewsOverlayBtn:active {
-	background:#ddd;
-	border:1px solid #555;
-	color: #555;
+	background:#ED4040;
+	border:1px solid #9E3A3A;
+	color: #9E3A3A;
 }
-*/''
+
 
 #wrapper {
 	width:100%;
@@ -238,16 +253,16 @@ background: -webkit-linear-gradient(top, #45484d 0%,#000000 100%); /* Chrome10+,
 }
 
 #footer a#newsLink {
-	border-left:1px solid #2b1a12;
+	border-left:1px solid black;
 	margin-right:-4px;
 }
 #footer a#videosLink {
-	border-left:1px solid #2b1a12;
-	border-right:1px solid #2b1a12;
+	border-left:1px solid black;
+	border-right:1px solid black;
 }
 
 #footer a#photosLink {
-	border-right:1px solid #2b1a12;
+	border-right:1px solid black;
 	margin-left:-4px;
 }
 
@@ -330,11 +345,14 @@ background: -webkit-linear-gradient(top, #45484d 0%,#000000 100%); /* Chrome10+,
 }
 
 #featureWrapper .featureStory .title {
+	background-image: -webkit-gradient(
+	  linear, left top, left bottom, from(rgba(40,40,40,0.8)),
+	  to(rgba(0,0,0,0.8)), color-stop(.5,#222)
+	);
 	position: relative;
 	top: 308px;
 	left: 0px;
 	z-index: 100;
-	background: rgba(0, 0, 0, 0.79);
 	font-size: 25px;
 	text-align: left;
 	font-family: "ArvoRegular";
@@ -420,14 +438,15 @@ background: -webkit-linear-gradient(top, #45484d 0%,#000000 100%); /* Chrome10+,
 
 #storiesWrapper .story {
 	text-align:left;
-	color: #b0b1b1;
+	color: white;
 	line-height:20px;
 	font-size:14px;
 	padding:5px 18px;
-	font-family:sans-serif;
-	font-weight:lighter;
 	-webkit-text-shadow: 1px 1px 2px black;
 	-moz-text-shadow: 1px 1px 2px black;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light",
+	             "Helvetica Neue", sans-serif;
+	line-height:24px;
 	/*border-left: 1px solid #333;
 	border-top: 1px solid #333;
 	border-right: 1px solid black;
@@ -571,23 +590,23 @@ background: -webkit-linear-gradient(top, #45484d 0%,#000000 100%); /* Chrome10+,
 
 
 
-.cricketnext-cls {
+p.cricketnext-cls {
 	background:#af0000;
 	color: #490404;
 }
 
-.cricinfo-cls {
+p.cricinfo-cls {
 	
 	background:#ffe400;
 	color: #81800e;
 }
 
-.cricbuzz-cls {
+p.cricbuzz-cls {
 	background:#28ab1e;
 	color: #d1ff6f;
 }
 
-.timesofindia-cls {
+p.timesofindia-cls {
 	background:#ef6b13;
 	color: #ffc9a8;
 }
