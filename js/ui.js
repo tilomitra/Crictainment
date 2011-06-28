@@ -27,6 +27,8 @@ YUI.add('ui', function(Y) {
 			if (s.hasClass('hide')) {
 				s.removeClass('hide');
 			}
+
+
 		},
 
 		hideNewsBar: function() {
@@ -52,6 +54,7 @@ YUI.add('ui', function(Y) {
 			if (v.hasClass('hide')) {
 				v.removeClass('hide');
 			}
+
 			
 
 		},
@@ -200,6 +203,22 @@ YUI.add('ui', function(Y) {
 
 			return self._newsOverlay;
 
+		},
+
+		moveContainerVertically: function(touchEvent) {
+			//console.log(touchEvent.targetTouches.length);
+
+			if (touchEvent.targetTouches.length === 2) {
+				
+				var avgScreenY = Math.round((touchEvent.touches[0].pageY + touchEvent.touches[1].pageY)/2);
+				//console.log(avgScreenY);
+				var w = Y.one('#storiesContainer');
+				var top = w.get("offsetTop");
+				var offset = avgScreenY - top;
+				//avgScreenY = (avgScreenY > 40) ? avgScreenY : 40;
+				w.setStyle('top', avgScreenY + offset + 'px');
+			}
+			
 		},
 
 		createSpinner: function(canvas, options) {

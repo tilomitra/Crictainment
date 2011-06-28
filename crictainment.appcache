@@ -1,7 +1,21 @@
 CACHE MANIFEST
-# 2011-06-21:v1
+# 2011-06-21:v3
+
+CACHE:
 img/background-texture.png
 img/container-bg-wall.png
 img/vid-icon.png
 img/photo-icon.png
 fonts/Arvo-Regular-webfont.svg
+
+
+NETWORK:
+# explicit list of stuff that can be accessed over the network
+http://sandbox.tilomitra.com
+http://joehewitt.github.com
+http://yui.yahooapis.com
+http://query.yahooapis.com
+http://fonts.googleapis.com
+http://www.espncricinfo.com
+http://www.cricinfo.com
+http://p.imgci.com/

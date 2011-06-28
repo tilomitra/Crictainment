@@ -4,18 +4,32 @@
 	 
 	    Y.controller = {
 	    	init: function() {
-				//this.listen();
+				this.listen();
 				this.listenToFooter();
 				this.listenToFeaturesAndCricinfo();
 				this.listenToCricketNextStories();
 				this.listenToRefresh();
 			},
-			listen: function() {
 
-				var self = this;
-				Y.all('.story a, .story div').each(function(n) {
-					self.stop(n);
-				});
+			listen: function() {
+				var moveContainerVertically = function(touchEvent) {
+					//console.log(touchEvent.targetTouches.length);
+
+					if (touchEvent.targetTouches.length === 2) {
+						
+						var avgScreenY = Math.round((touchEvent.touches[0].pageY + touchEvent.touches[1].pageY)/2);
+						//console.log(avgScreenY);
+						var w = Y.one('#storiesContainer');
+						var top = w.get("offsetTop");
+						var offset = avgScreenY - top;
+						//avgScreenY = (avgScreenY > 40) ? avgScreenY : 40;
+						w.setStyle('top', avgScreenY + offset + 'px');
+					}
+					
+				};
+
+				Y.one('#storiesWrapper').on('touchmove', Y.ui.moveContainerVertically);
+				//Y.one('#photoWrapper').on('touchmove', moveContainerVertically);
 			},
 
 			listenToFeaturesAndCricinfo: function() {
@@ -29,18 +43,6 @@
 
 				Y.one('#featureWrapper').delegate("click", fetchArticle, ".featureStory a");
 				Y.one('#storiesWrapper').delegate("click", fetchArticle, "div.cricinfo-cls a");
-
-				// Y.all(".featureLink, div.cricinfo-cls a").each(function(n) {
-				// 	//console.log(n);
-				// 	//console.log(Y.Node.create(n._node.parentNode).getDOMNode());
-				// 	n.on('click', function(e) {
-				// 		e.preventDefault();
-				// 		var href = e.currentTarget._stateProxy.href;
-				// 		Y.ui.showSpinner();
-				// 		Y.data.fetchCricinfoArticle(href);
-				// 		Y.ui.hideSpinner();
-				// 	});
-				// });
 			},
 
 			listenToCricketNextStories: function() {
@@ -165,6 +167,6 @@
 			// }
 	    }
 	 
-	}, '1.0' /* module version */, {
+	}, '2.0' /* module version */, {
 	    requires: ['base','data','ui']
 	});

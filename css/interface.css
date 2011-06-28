@@ -56,7 +56,7 @@
 /* END FONT FACE */
 
 html {
-	background:transparent url('../img/background-texture.png') no-repeat scroll 0 0;
+	background:transparent url('../img/background-texture.png') repeat scroll 0 0;
 
 }
 
@@ -94,6 +94,9 @@ input[type=button], a {
 	background:transparent;
 	text-align:center;
 }
+#loading a {
+	color: transparent;
+}
 #box {
 	z-index:1000;
 	position:absolute;
@@ -111,9 +114,9 @@ input[type=button], a {
 	opacity:0.8;
 }
 #refresh {
-	float: right;
-	top: -28px;
-	right: 39px;
+	float: left;
+	top: 0px;
+	left: 33px;
 	position: relative;
 }
 
@@ -386,14 +389,23 @@ input[type=button], a {
 	 width: 96%;
 	 -webkit-box-shadow: 0px 0px 5px black;
 	 -moz-box-shadow: 0px 0px 5px black;
-	 background:#b0bdc8 url('../img/menuHead-apple.png') repeat-x scroll;
-	 text-align:center;
+	 background: #499bea;
+	 background: -moz-linear-gradient(top, #499bea 0%, #207ce5 100%);
+	 background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#499bea), color-stop(100%,#207ce5));
+	 background: -webkit-linear-gradient(top, #499bea 0%,#207ce5 100%);
+	 background: -o-linear-gradient(top, #499bea 0%,#207ce5 100%);
+	 background: -ms-linear-gradient(top, #499bea 0%,#207ce5 100%);
+	 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#499bea', endColorstr='#207ce5',GradientType=0 );
+	 background: linear-gradient(top, #499bea 0%,#207ce5 100%);	 text-align:center;
 }
 #colorHead h3 {
-	-webkit-text-shadow:2px 2px 1px #545c61;
-	color:white;
-	font-size:96%;
-	margin-top: 6px;
+	color: #0E2D6B;
+	font-size: 96%;
+	margin-top: 2px;
+	-webkit-text-shadow: -1px 1px #68AAE8;
+	text-shadow: -1px 1px #68AAE8;
+	font-weight: normal;
+	font-family: "ArvoRegular";
 }
 
 #storiesContainer {
@@ -409,6 +421,9 @@ input[type=button], a {
 	bottom: 0px;
 	-webkit-transform: translate3d(0,0,0);
 	z-index:200;
+	-webkit-box-shadow:1px 1px 10px black;
+	-moz-box-shadow: 1px 1px 10px black;
+	box-shadow:1px 1px 10px black;
 
 }
 #videoWrapper, #photoWrapper {

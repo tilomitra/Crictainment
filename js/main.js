@@ -41,7 +41,7 @@ YUI({
 			Y.ui.createFeaturesScrollView();
 			Y.ui.createStoriesScrollView();
 
-			Y.later(500,Y.controller,"init");
+			Y.later(750,Y.controller,"init");
 			Y.later(600, Y.ui, "instantiateNewsOverlay");
 
 			Y.ui.hideSpinner();
