@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<html>
 	<head>
 	<title>Crictainment</title>
 
@@ -24,14 +24,13 @@
 	        charset="utf-8"></script>
 	    <script src="js/main.js" charset="utf-8"></script>
 	    <script src="http://joehewitt.github.com/scrollability/scrollability-min.js" charset="utf-8"></script>
-	    <script src="js/disable-mobile-safari.js"></script>
 
 	</head>
 
 	<body ontouchmove="BlockMove(event);" onload="doThis()">
 
 		<div class="yui3-g" id="wrapper">
-		<div class="yui3-u" id="load"></div>
+		<!-- <div class="yui3-u" id="load"></div> -->
 		<div class="yui3-u-1" id="header">
 			<div id="refresh">
 				<a href="#">
@@ -42,9 +41,7 @@
 		</div>
 			<div class="yui3-u-23-24" id="container">
 				
-				<div id="loading" class="hide">
-					<canvas id="small"></canvas> 
-				</div>
+				<div id="notice" class="yui3-u-1">Fetching Content...</div>
 				<div id="newsOverlay"></div>
 
 				<!-- <div id="box"></div> -->

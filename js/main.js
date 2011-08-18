@@ -2,24 +2,24 @@ YUI({
 	modules: {
 		ui: {
 			//fullpath: "http://localhost:8888/crictainment/js/ui.js",
-			fullpath: "http://sandbox.tilomitra.com/crictainment2/js/ui.js",
+			fullpath: "http://tilomitra.com/crictainment/js/ui.js",
 			requires: ['base', 'overlay', 'gallery-overlay-extras', 'gallery-overlay-transition', 'tmscrollview', 'controller']
 		},
 		data: {
 			//fullpath: "http://localhost:8888/crictainment/js/data.js",
-			fullpath: "http://sandbox.tilomitra.com/crictainment2/js/data.js",
+			fullpath: "http://tilomitra.com/crictainment/js/data.js",
 			requires: ['base', 'yql', 'resize-base', 'resize-constrain', 'controller', 'json']
 		},
 
 		controller: {
 			//fullpath: "http://localhost:8888/crictainment/js/controller.js",
-			fullpath: "http://sandbox.tilomitra.com/crictainment2/js/controller.js",
+			fullpath: "http://tilomitra.com/crictainment/js/controller.js",
 			requires: ['base','data','ui', 'gallery-outside-events']
 		},
 
 		tmscrollview: {
 			//fullpath: "http://localhost:8888/crictainment/js/tm-scrollview-base.js",
-			fullpath: "http://sandbox.tilomitra.com/crictainment2/js/tm-scrollview-base.js",
+			fullpath: "http://tilomitra.com/crictainment/js/tm-scrollview-base.js",
 			requires: ['widget', 'event-gestures', 'transition']
 		}
 	}
@@ -29,8 +29,8 @@ YUI({
 
 		var main = function() {
 
-			Y.ui.createSpinner(document.getElementById('small'), {color:'white'});
-			Y.ui.showSpinner();
+			//Y.ui.createSpinner(document.getElementById('small'), {color:'white'});
+			//Y.ui.showSpinner();
 			//Y.data.fetchFromHistory();
 
 			//Y.data.showFeatures(Y.data.retrieveFeatures());
@@ -44,7 +44,7 @@ YUI({
 			Y.later(750,Y.controller,"init");
 			Y.later(600, Y.ui, "instantiateNewsOverlay");
 
-			Y.ui.hideSpinner();
+			//Y.ui.hideSpinner();
 			
 		}();
 });

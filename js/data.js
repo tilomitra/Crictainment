@@ -132,8 +132,11 @@
 
 	      			//concat the content
 	      			for (var i=0; i<r.query.results.p.length; i++) {
-	      				o.content += '<p>'+r.query.results.p[i].content+'</p>';
+	      				if (r.query.results.p[i].content !== undefined) {
+	      					o.content += '<p>'+r.query.results.p[i].content+'</p>';
+	      				}
 	      			}
+	      
 	      			
 	      			//provide img url
 	      			if (r.query.results.img) {
@@ -150,6 +153,41 @@
 
 	      		});
 	    	},
+
+	   //  	fetchTimesArticle: function(link) {
+	   //  		var query = "select * from html where url='"+link+"' and xpath='//div[@class=\"Normal\"] | //h1'",
+	   //  		self = this,
+	   //  		o = {
+	   //  			content	: '',
+	   //  			imgUrl	: undefined, //this may not be there at all and i dont wanna deal with empty strings
+	   //  			header	: ''
+	   //  		};
+
+				// Y.YQL(query, function(r) {
+
+				// 	//get the header
+				// 	o.header = r.query.results.h1[0].span.content;
+
+		  // 			//concat the content
+		  // 			for (var i=0; i<r.query.results.div.span; i++) {
+		  // 				o.content += '<p>'+r.query.results.p[i].content+'</p>';
+		  // 			}
+		  			
+		  // 			//provide img url
+		  // 			if (r.query.results.img) {
+		  // 				o.imgUrl = 'http://www.cricinfo.com' + r.query.results.img.src;
+		  // 			}
+
+		  // 			var overlay = Y.ui.createNewsOverlay(o);
+		  // 			//Y.one('#newsOverlay').setStyle('display', 'block');
+		  // 			Y.controller.listenToNewsClose(overlay);
+		  // 			//overlay.get('contentBox').removeClass('animate translate-3d');
+		  // 			//Y.later(1000, function()); //overlay.set('visible', true);
+
+		  			
+
+		  // 		});
+	   //  	},
 
 	    	//fetches array of preview images and their larger images from Yahoo Cricket Photos of the Week
 	    	fetchPictures: function() {
@@ -217,7 +255,7 @@
 				for (; i < o.length; i++) {
 					var d = {
 						title: o[i].content,
-						image: o[i].imgUrl || 'http://sandbox.tilomitra.com/crictainment/img/default-feature-image-1.png',
+						image: o[i].imgUrl || 'http://sandbox.tilomitra.com/crictainment2/img/default-feature-image-1.png',
 						href: o[i].href,
 						divId: "feature-"+o[i].id
 					};
@@ -228,11 +266,10 @@
 				html =  "<table><tr>" + html + "</tr></table";
 
 				Y.one('#featureWrapper').get('children').remove();
-
 				Y.one("#featureWrapper").append(html);
-
 				Y.one('#featureWrapper').setStyle('marginLeft', '-35px');
 
+				Y.one('#notice').setContent('Content fetched at <strong>'+this._getClockTime()+'</strong>');
 	    	},
 
 	    	showStories: function(feed) {
@@ -326,8 +363,8 @@
 	    		detailPhoto = Y.one("#photoDetail");
 
 	    		detailPhoto.get('children').remove();
-
 	    		detailPhoto.appendChild(html);
+	    		Y.controller.listenToPhotoScale();
 	    	},
 
 	    	showPictures: function() {
@@ -419,6 +456,28 @@
 	    	_isUrl: function(url) {
     			var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
     			return regexp.test(url);
+	    	},
+
+	    	_getClockTime: function() {
+	    		var now    = new Date();
+	    		var hour   = now.getHours();
+	    		var minute = now.getMinutes();
+	    		//var second = now.getSeconds();
+	    		var ap = "AM";
+	    		if (hour   > 11) { ap = "PM";             }
+	    		if (hour   > 12) { hour = hour - 12;      }
+	    		if (hour   == 0) { hour = 12;             }
+	    		//if (hour   < 10) { hour   = "0" + hour;   }
+	    		if (minute < 10) { minute = "0" + minute; }
+	    		//if (second < 10) { second = "0" + second; }
+	    		var timeString = hour +
+	    		                 ':' +
+	    		                 minute +
+	    		                 // ':' +
+	    		                 // second +
+	    		                 // " " +
+	    		                 ap;
+	    		return timeString;
 	    	}
 	    }
 	 

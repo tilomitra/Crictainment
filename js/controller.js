@@ -4,14 +4,18 @@
 	 
 	    Y.controller = {
 	    	init: function() {
-				this.listen();
+				this.listenToResize();
 				this.listenToFooter();
 				this.listenToFeaturesAndCricinfo();
-				this.listenToCricketNextStories();
+				this.handleStories();
+				// this.listenToCricketNextStories();
+				// this.listenToCricBuzzStories();
+				// this.listenToTimesOfIndiaStories();
 				this.listenToRefresh();
+				this.listenToNotice();
 			},
 
-			listen: function() {
+			listenToResize: function() {
 				var moveContainerVertically = function(touchEvent) {
 					//console.log(touchEvent.targetTouches.length);
 
@@ -23,33 +27,65 @@
 						var top = w.get("offsetTop");
 						var offset = avgScreenY - top;
 						//avgScreenY = (avgScreenY > 40) ? avgScreenY : 40;
-						w.setStyle('top', avgScreenY + offset + 'px');
+						w.setStyle('top', avgScreenY + 'px');
 					}
 					
 				};
-
-				Y.one('#storiesWrapper').on('touchmove', Y.ui.moveContainerVertically);
+				Y.one('#storiesWrapper').delegate("touchmove", moveContainerVertically, ".storiesWrapper .story a");
+				Y.one('#storiesWrapper').delegate("touchmove", moveContainerVertically, ".storiesWrapper .story");
+				Y.one('#storiesWrapper').on('touchmove', moveContainerVertically);
 				//Y.one('#photoWrapper').on('touchmove', moveContainerVertically);
 			},
+
+			listenToNotice: function() {
+				var n = Y.one('#notice');
+				n.on('click', function(e) {
+					n.addClass('translate-3d slideUp');
+				});
+			},
+
 
 			listenToFeaturesAndCricinfo: function() {
 				var fetchArticle = function(e) {
 					e.preventDefault();
 					var href = e.currentTarget._stateProxy.href;
-					Y.ui.showSpinner();
+					//Y.ui.showSpinner();
 					Y.data.fetchCricinfoArticle(href);
-					Y.ui.hideSpinner();
+					//Y.ui.hideSpinner();
 				};
 
 				Y.one('#featureWrapper').delegate("click", fetchArticle, ".featureStory a");
 				Y.one('#storiesWrapper').delegate("click", fetchArticle, "div.cricinfo-cls a");
 			},
 
-			listenToCricketNextStories: function() {
-				Y.all("div.cricketnext-cls a").each(function(n) {
+			handleStories: function() {
+				var prevent = function(e) {
+					e.preventDefault();
+				};
+
+				Y.one('#storiesWrapper').delegate("click", prevent, "div.cricketnext-cls a");
+				Y.one('#storiesWrapper').delegate("click", prevent, "div.timesofindia-cls a");
+				Y.one('#storiesWrapper').delegate("click", prevent, "div.cricbuzz-cls a");
+
+			},
+
+			listenToTimesOfIndiaStories: function() {
+				Y.all("div.timesofindia-cls a").each(function(n) {
 					n.on('click', function(e) {
 						e.preventDefault();
 						var href = e.href;
+						//Y.data.fetchTimesArticle(href);
+
+					});
+				});	
+			},
+
+			listenToCricBuzzStories: function() {
+				Y.all("div.cricbuzz-cls a").each(function(n) {
+					n.on('click', function(e) {
+						e.preventDefault();
+						var href = e.href;
+						//Y.data.fetchTimesArticle(href);
 
 					});
 				});	
@@ -108,6 +144,18 @@
 						Y.data.fetchPhotoDetail(e.currentTarget._node.id);
 					});
 				});	
+			},
+
+			listenToPhotoScale: function() {
+
+				var startScale = 1,
+				node = Y.one('#largeImage img');
+
+				var scalePhoto = function(event) {
+					node.setStyle('webkitTransform', 'scale('+event.scale * startScale/2 +')');
+					//event.target.style.webkitTransform = ;	
+				};
+				Y.all('#largeImage img').on('gesturechange', scalePhoto);
 			},
 
 			listenToFooter: function() {

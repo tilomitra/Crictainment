@@ -7,8 +7,12 @@
     -webkit-animation-name: translate3dslideOut;
     -webkit-transform-origin: 50% 50%;
 }
+.translate-3d.slideUp {
+    -webkit-animation-name: translate3dslideUp;
+    -webkit-transform-origin: 50% 50%;
+}
 
-.slideIn, .slideOut {
+.slideIn, .slideOut, .slideUp {
     -webkit-animation-duration: 0.4s;
     -webkit-animation-iteration-count: 1;
     -webkit-transform-origin: 0 0;
@@ -39,6 +43,20 @@
     
     to {
         -webkit-transform: translate3d(1000px, 0, 0);
+        opacity: 0;
+        display:none;
+    }
+}
+
+@-webkit-keyframes translate3dslideUp {
+    from {
+        -webkit-transform: translate3d(0, 0, 0);
+        opacity: 1;
+        display:block;
+    }
+    
+    to {
+        -webkit-transform: translate3d(0, -100px, 0);
         opacity: 0;
         display:none;
     }
