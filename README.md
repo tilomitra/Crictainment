@@ -48,7 +48,7 @@ Technical Details
 
 Todo
 ----
-
+* Lots of hard-coded CSS widths and heights which make it look great on iPad but not-so-great on the wider desktop.
 * I'm using scrollability in some places. I'd like to either pull this out or edit Scrollability to it does flicking
 even when using the mouse.
 * I haven't figured out how to pull stories from a few of the sites. I think Cricinfo works and Cricbuzz works, but
