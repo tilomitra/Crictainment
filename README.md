@@ -27,6 +27,7 @@ Why did you make it?
 --------------------
 
 Because...
+
 * I'm a cricket fan
 * nothing in this app uses device-level capabilities so why make a native app?
 * I could not finish a native app in the 24 hours that it took me to make this.
