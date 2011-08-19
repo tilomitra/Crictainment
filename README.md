@@ -20,7 +20,7 @@ www.tilomitra.com/crictainment
 Note that if things don't load initially, just refresh the page (this is still a hack, you know). Sometimes, pulling
 the data takes a little longer than usual.
 
-View that site in your iPad and add to your home screen for best experience.
+For best experience, view that site on a Webkit browser (sorry FF and IE), or on your iPad and add to your home screen.
 
 
 Why did you make it?
